@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		17480E031BC833D10022B2CF /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17480E021BC833D10022B2CF /* Launch Screen.storyboard */; };
 		806CCAC421BAFCF10083836F /* S3TransferUtilitySampleSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806CCAC321BAFCF10083836F /* S3TransferUtilitySampleSwiftUITests.swift */; };
-		8076715221C4876400D068E1 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 8076715121C4876300D068E1 /* awsconfiguration.json */; };
 		BDCC7EC119DE50AB008B2510 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCC7EC019DE50AB008B2510 /* AppDelegate.swift */; };
 		BDCC7EC319DE50AB008B2510 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCC7EC219DE50AB008B2510 /* UploadViewController.swift */; };
 		BDCC7EC519DE50AB008B2510 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCC7EC419DE50AB008B2510 /* DownloadViewController.swift */; };
@@ -17,6 +16,11 @@
 		BDCC7ECA19DE50AB008B2510 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDCC7EC919DE50AB008B2510 /* Images.xcassets */; };
 		BDCC7EE619DE5F09008B2510 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCC7EE519DE5F09008B2510 /* Constants.swift */; };
 		DCBBEFEEEC34C98F0C061D33 /* Pods_S3TransferUtilitySampleSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7448429987CC77DCB71A7C /* Pods_S3TransferUtilitySampleSwift.framework */; };
+		FA5F0B1622E0CCDE00C6803F /* testImages in Resources */ = {isa = PBXBuildFile; fileRef = FA5F0B1522E0CCDE00C6803F /* testImages */; };
+		FA5F0B1822E0D2EE00C6803F /* UploadBatchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5F0B1722E0D2EE00C6803F /* UploadBatchTableViewController.swift */; };
+		FA5F0B1C22E0D44700C6803F /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5F0B1B22E0D44700C6803F /* HomeTableViewController.swift */; };
+		FA5F0B1E22E0D49F00C6803F /* AWSProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5F0B1D22E0D49F00C6803F /* AWSProviders.swift */; };
+		FAD169F722E1326D00C762BA /* UploadDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD169F622E1326D00C762BA /* UploadDetailTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +41,6 @@
 		806CCAC121BAFCF10083836F /* S3TransferUtilitySampleSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = S3TransferUtilitySampleSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		806CCAC321BAFCF10083836F /* S3TransferUtilitySampleSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3TransferUtilitySampleSwiftUITests.swift; sourceTree = "<group>"; };
 		806CCAC521BAFCF10083836F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8076715121C4876300D068E1 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		99B0E3DD009488F179BE0C40 /* Pods-S3TransferUtilitySampleSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-S3TransferUtilitySampleSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-S3TransferUtilitySampleSwift/Pods-S3TransferUtilitySampleSwift.release.xcconfig"; sourceTree = "<group>"; };
 		BDCC7EBB19DE50AB008B2510 /* S3TransferUtilitySampleSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = S3TransferUtilitySampleSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDCC7EBF19DE50AB008B2510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -48,6 +51,11 @@
 		BDCC7EC919DE50AB008B2510 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BDCC7EE519DE5F09008B2510 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DB7448429987CC77DCB71A7C /* Pods_S3TransferUtilitySampleSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_S3TransferUtilitySampleSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA5F0B1522E0CCDE00C6803F /* testImages */ = {isa = PBXFileReference; lastKnownFileType = folder; name = testImages; path = S3BackgroundTransferSampleSwift/testImages; sourceTree = SOURCE_ROOT; };
+		FA5F0B1722E0D2EE00C6803F /* UploadBatchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadBatchTableViewController.swift; sourceTree = "<group>"; };
+		FA5F0B1B22E0D44700C6803F /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		FA5F0B1D22E0D49F00C6803F /* AWSProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSProviders.swift; sourceTree = "<group>"; };
+		FAD169F622E1326D00C762BA /* UploadDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDetailTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +100,6 @@
 		BDCC7EB219DE50AB008B2510 = {
 			isa = PBXGroup;
 			children = (
-				8076715121C4876300D068E1 /* awsconfiguration.json */,
 				BDCC7EBD19DE50AB008B2510 /* S3BackgroundTransferSampleSwift */,
 				806CCAC221BAFCF10083836F /* S3TransferUtilitySampleSwiftUITests */,
 				BDCC7EBC19DE50AB008B2510 /* Products */,
@@ -113,14 +120,16 @@
 		BDCC7EBD19DE50AB008B2510 /* S3BackgroundTransferSampleSwift */ = {
 			isa = PBXGroup;
 			children = (
-				BDCC7EE519DE5F09008B2510 /* Constants.swift */,
-				BDCC7EC019DE50AB008B2510 /* AppDelegate.swift */,
-				BDCC7EC219DE50AB008B2510 /* UploadViewController.swift */,
-				BDCC7EC419DE50AB008B2510 /* DownloadViewController.swift */,
-				BDCC7EC619DE50AB008B2510 /* Main.storyboard */,
-				BDCC7EC919DE50AB008B2510 /* Images.xcassets */,
 				BDCC7EBE19DE50AB008B2510 /* Supporting Files */,
-				17480E021BC833D10022B2CF /* Launch Screen.storyboard */,
+				BDCC7EC019DE50AB008B2510 /* AppDelegate.swift */,
+				FA5F0B1D22E0D49F00C6803F /* AWSProviders.swift */,
+				BDCC7EE519DE5F09008B2510 /* Constants.swift */,
+				BDCC7EC419DE50AB008B2510 /* DownloadViewController.swift */,
+				FA5F0B1B22E0D44700C6803F /* HomeTableViewController.swift */,
+				BDCC7EC619DE50AB008B2510 /* Main.storyboard */,
+				FA5F0B1722E0D2EE00C6803F /* UploadBatchTableViewController.swift */,
+				FAD169F622E1326D00C762BA /* UploadDetailTableViewCell.swift */,
+				BDCC7EC219DE50AB008B2510 /* UploadViewController.swift */,
 			);
 			path = S3BackgroundTransferSampleSwift;
 			sourceTree = "<group>";
@@ -128,6 +137,9 @@
 		BDCC7EBE19DE50AB008B2510 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FA5F0B1522E0CCDE00C6803F /* testImages */,
+				17480E021BC833D10022B2CF /* Launch Screen.storyboard */,
+				BDCC7EC919DE50AB008B2510 /* Images.xcassets */,
 				BDCC7EBF19DE50AB008B2510 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -167,7 +179,6 @@
 			buildConfigurationList = BDCC7EDC19DE50AB008B2510 /* Build configuration list for PBXNativeTarget "S3TransferUtilitySampleSwift" */;
 			buildPhases = (
 				8C4F24B059DA434BB60233A9 /* [CP] Check Pods Manifest.lock */,
-				8076715021C483C700D068E1 /* ShellScript */,
 				BDCC7EB719DE50AB008B2510 /* Sources */,
 				BDCC7EB819DE50AB008B2510 /* Frameworks */,
 				BDCC7EB919DE50AB008B2510 /* Resources */,
@@ -236,9 +247,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8076715221C4876400D068E1 /* awsconfiguration.json in Resources */,
 				BDCC7EC819DE50AB008B2510 /* Main.storyboard in Resources */,
 				17480E031BC833D10022B2CF /* Launch Screen.storyboard in Resources */,
+				FA5F0B1622E0CCDE00C6803F /* testImages in Resources */,
 				BDCC7ECA19DE50AB008B2510 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,19 +257,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8076715021C483C700D068E1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ ! -e  awsconfiguration.json ]\nthen\necho \"awsconfiguration.json file is missing. Please add it to your xcode project inorder to run the app\" >&2\nexit 1\nfi";
-		};
 		8C4F24B059DA434BB60233A9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -284,20 +282,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-S3TransferUtilitySampleSwift/Pods-S3TransferUtilitySampleSwift-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSMobileClient/AWSMobileClient.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAuthCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProvider.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProviderASF.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMobileClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSS3.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,6 +313,10 @@
 				BDCC7EC519DE50AB008B2510 /* DownloadViewController.swift in Sources */,
 				BDCC7EC119DE50AB008B2510 /* AppDelegate.swift in Sources */,
 				BDCC7EC319DE50AB008B2510 /* UploadViewController.swift in Sources */,
+				FA5F0B1822E0D2EE00C6803F /* UploadBatchTableViewController.swift in Sources */,
+				FA5F0B1C22E0D44700C6803F /* HomeTableViewController.swift in Sources */,
+				FAD169F722E1326D00C762BA /* UploadDetailTableViewCell.swift in Sources */,
+				FA5F0B1E22E0D49F00C6803F /* AWSProviders.swift in Sources */,
 				BDCC7EE619DE5F09008B2510 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

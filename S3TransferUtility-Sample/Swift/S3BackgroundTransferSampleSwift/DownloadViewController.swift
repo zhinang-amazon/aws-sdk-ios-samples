@@ -25,7 +25,7 @@ class DownloadViewController: UIViewController{
     @objc var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
 
     @objc lazy var transferUtility = {
-        AWSS3TransferUtility.default()
+        AWSProviders.transferUtility
     }()
 
     override func viewDidLoad() {
@@ -76,7 +76,8 @@ class DownloadViewController: UIViewController{
         }
 
         transferUtility.downloadData(
-            forKey: S3DownloadKeyName,
+            fromBucket: Constants.bucket,
+            key: Constants.testImageKey,
             expression: expression,
             completionHandler: completionHandler).continueWith { (task) -> AnyObject? in
                 if let error = task.error {

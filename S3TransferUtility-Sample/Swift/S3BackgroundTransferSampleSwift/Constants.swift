@@ -17,6 +17,11 @@ import Foundation
 import AWSCore
 
 // Warning: To run this sample correctly, you must set the following constants.
+struct Constants {
+    static let testImageKey: String = "public/test-image.png"
 
-let S3DownloadKeyName: String = "public/test-image.png"    // Name of file to be downloaded
-let S3UploadKeyName: String = "public/test-image.png"      // Name of file to be uploaded
+    static let identityPoolId = "us-east-2:94c7f5d1-213d-417e-8d0c-e12b4c5cd08f"
+    static let bucket = "s3multiuploadc508f20638024de9aa4c3847aaaf7131-dev"
+    static let region = AWSRegionType.USEast2
+    static let transferUtilityKey = "awsS3TransferUtilityKey"
+}

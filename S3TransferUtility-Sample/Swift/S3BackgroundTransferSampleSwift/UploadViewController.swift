@@ -24,21 +24,18 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate {
     @objc var completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
     @objc var progressBlock: AWSS3TransferUtilityProgressBlock?
 
-    @objc let imagePicker = UIImagePickerController()
-
     @objc lazy var transferUtility = {
-        AWSS3TransferUtility.default()
+        AWSProviders.transferUtility
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        self.progressView.progress = 0.0;
-        self.statusLabel.text = "Ready"
-        self.imagePicker.delegate = self
+        progressView.progress = 0.0;
+        statusLabel.text = "Ready"
 
-        self.progressBlock = {(task, progress) in
+        progressBlock = {(task, progress) in
             DispatchQueue.main.async(execute: {
                 if (self.progressView.progress < Float(progress.fractionCompleted)) {
                     self.progressView.progress = Float(progress.fractionCompleted)
@@ -46,7 +43,7 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate {
             })
         }
 
-        self.completionHandler = { (task, error) -> Void in
+        completionHandler = { (task, error) -> Void in
             DispatchQueue.main.async(execute: {
                 if let error = error {
                     print("Failed with error: \(error)")
@@ -61,9 +58,12 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate {
                 }
             })
         }
+
     }
 
     @IBAction func selectAndUpload(_ sender: UIButton) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
 
@@ -81,7 +81,8 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate {
 
         transferUtility.uploadData(
             data,
-            key: S3UploadKeyName,
+            bucket: Constants.bucket,
+            key: Constants.testImageKey,
             contentType: "image/png",
             expression: expression,
             completionHandler: completionHandler).continueWith { (task) -> AnyObject? in
@@ -106,19 +107,19 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate {
                 return nil;
         }
     }
+
 }
 
 extension UploadViewController: UIImagePickerControllerDelegate {
 
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+        // Local variable inserted by Swift 4.2 migrator.
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
         if "public.image" == info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.mediaType)] as? String {
             let image: UIImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as! UIImage
             self.uploadImage(with: image.pngData()!)
         }
-
 
         dismiss(animated: true, completion: nil)
     }
@@ -126,10 +127,10 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+    return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-	return input.rawValue
+    return input.rawValue
 }
