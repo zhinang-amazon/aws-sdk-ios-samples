@@ -1,0 +1,9 @@
+source 'https://github.com/palpatim/development-specs.git'
+
+platform :ios, '9.0'
+use_frameworks!
+
+target 'TranscribeStreamingExampleWSSObjC' do
+  $awsVersion = '~> 2.10.0'
+  pod 'AWSTranscribeStreaming', $awsVersion
+end
