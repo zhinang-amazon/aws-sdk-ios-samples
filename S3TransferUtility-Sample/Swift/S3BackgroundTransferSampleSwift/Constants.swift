@@ -20,8 +20,8 @@ import AWSCore
 struct Constants {
     static let testImageKey: String = "public/test-image.png"
 
-    static let identityPoolId = "us-east-2:94c7f5d1-213d-417e-8d0c-e12b4c5cd08f"
-    static let bucket = "s3multiuploadc508f20638024de9aa4c3847aaaf7131-dev"
+    static let identityPoolId = "REPLACE_ME"
+    static let bucket = "REPLACE_ME"
     static let region = AWSRegionType.USEast2
     static let transferUtilityKey = "awsS3TransferUtilityKey"
 }

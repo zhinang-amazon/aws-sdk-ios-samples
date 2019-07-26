@@ -47,7 +47,7 @@ struct AWSProviders {
 
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType: Constants.region,
                                                                 identityPoolId: Constants.identityPoolId)
-        
+
         let configuration = AWSServiceConfiguration(region: .USEast2,
                                                     credentialsProvider: credentialsProvider)!
         
@@ -73,5 +73,10 @@ struct AWSProviders {
                                       transferUtilityConfiguration: transferUtilityConfiguration,
                                       forKey: Constants.transferUtilityKey)
 
+        // Retrieve credentials to ensure we have one whenever we start the batch uploads.
+        // This is an asynchronous call, but we don't need it to be completed before proceeding with initialization,
+        // so we'll fire and forget.
+        credentialsProvider.credentials()
     }
 }
+
