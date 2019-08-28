@@ -1,0 +1,32 @@
+source 'https://cdn.cocoapods.org/'
+
+platform :ios, '9.0'
+
+target 'PhotoAlbum' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  # Pods for PhotoAlbum
+  pod 'AWSAuthCore'
+  pod 'AWSCognitoIdentityProvider'
+  pod 'AWSCognitoIdentityProviderASF'
+  pod 'AWSCore'
+  pod 'AWSMobileClient'
+  pod 'AWSUserPoolsSignIn'
+  pod 'AWSAuthUI'
+  pod 'AWSS3'
+  pod 'AWSAppSync'
+  
+end
+target 'PhotoAlbumUITests' do
+  use_frameworks!
+  # Pods for PhotoAlbumUITests
+  pod 'AWSAuthCore'
+  pod 'AWSCognitoIdentityProvider'
+  pod 'AWSCognitoIdentityProviderASF'
+  pod 'AWSCore'
+  pod 'AWSMobileClient'
+  pod 'AWSUserPoolsSignIn'
+  pod 'AWSAuthUI'
+  pod 'AWSS3'
+  pod 'AWSAppSync'
+end
