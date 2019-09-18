@@ -14,6 +14,7 @@
 @interface ViewController()<AWSTranscribeStreamingClientDelegate>
 
 @property (nullable, nonatomic, strong) AWSTranscribeStreaming *transcribeStreaming;
+@property (weak, nonatomic) IBOutlet UITextView *transcriptionTextView;
 
 @end
 
@@ -35,11 +36,25 @@
                                                                   forKey:@"TranscribeStreamingDemo"];
 
     self.transcribeStreaming = [AWSTranscribeStreaming TranscribeStreamingForKey:@"TranscribeStreamingDemo"];
+}
 
+#pragma mark - Actions
+
+- (IBAction)didTapStart:(id)sender {
     [self initiateTranscribeStreamingRequest];
 }
 
+- (void)updateTranscription:(NSString *)transcription {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.transcriptionTextView.text = transcription;
+    });
+}
+
+#pragma mark - TranscribeStreaming support
+
 - (void)initiateTranscribeStreamingRequest {
+    [self updateTranscription:@"Initiating request"];
+
     AWSTranscribeStreamingStartStreamTranscriptionRequest *request = [AWSTranscribeStreamingStartStreamTranscriptionRequest new];
 
     request.languageCode = AWSTranscribeStreamingLanguageCodeEnUS;
@@ -50,10 +65,11 @@
                             callbackQueue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)];
 
     [self.transcribeStreaming startTranscriptionWSS:request];
-
 }
 
 - (void)streamAudio {
+    [self updateTranscription:@"Streaming audio"];
+
     NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"hello_world" ofType:@"wav"];
     if (!soundFilePath) {
         AWSDDLogError(@"Could not locate sound file hello_world.wav");
@@ -73,7 +89,7 @@
 
     NSInteger startPos = 0;
     NSInteger chunkSize = 4096;
-    NSInteger nextSize =  MIN(chunkSize, ([audioData length] - startPos));
+    NSInteger nextSize = MIN(chunkSize, ([audioData length] - startPos));
     AWSDDLogDebug(@"Audio length %lu", (unsigned long)[audioData length]);
 
     @autoreleasepool {
@@ -123,6 +139,14 @@
         return;
     }
 
+    AWSTranscribeStreamingAlternative *firstAlternative = [firstResult.alternatives firstObject];
+    if (!firstAlternative) {
+        AWSDDLogDebug(@"firstAlternative is nil--possibly a partial result");
+        return;
+    }
+
+    [self updateTranscription:firstAlternative.transcript];
+
     if (firstResult.isPartial) {
         AWSDDLogDebug(@"Partial result received, waiting for next event (results: %@)", transcriptEvent.transcript.results);
         return;
@@ -141,13 +165,29 @@
         return;
     }
 
-    AWSDDLogDebug(@"WS connection change - Error %ld", (long) connectionStatus);
+    NSString *statusString = [ViewController displayStringForConnectionStatus:connectionStatus];
+    AWSDDLogDebug(@"WS connection change - status %@", statusString);
     switch (connectionStatus) {
         case AWSTranscribeStreamingClientConnectionStatusConnected:
             [self streamAudio];
             break;
         default:
             break;
+    }
+}
+
++ (NSString *)displayStringForConnectionStatus:(AWSTranscribeStreamingClientConnectionStatus)status {
+    switch (status) {
+        case AWSTranscribeStreamingClientConnectionStatusConnecting:
+            return @"Connecting";
+        case AWSTranscribeStreamingClientConnectionStatusConnected:
+            return @"Connected";
+        case AWSTranscribeStreamingClientConnectionStatusClosing:
+            return @"Closing";
+        case AWSTranscribeStreamingClientConnectionStatusClosed:
+            return @"Closed";
+        default:
+            return @"Unknown";
     }
 }
 
