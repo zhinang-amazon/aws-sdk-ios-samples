@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[AWSDDLog sharedInstance] setLogLevel:AWSDDLogLevelVerbose];
+    [[AWSDDLog sharedInstance] setLogLevel:AWSDDLogLevelDebug];
     [[AWSDDLog sharedInstance] addLogger:[AWSDDTTYLogger sharedInstance]];
 
     AWSStaticCredentialsProvider *credentialsProvider = [[AWSStaticCredentialsProvider alloc] initWithAccessKey:Constants.AWSAccessKey
@@ -90,7 +90,7 @@
     [self.transcribeStreaming sendEndFrame];
 }
 
-// MARK: - AWSTranscribeStreamingTranscriptResultStream
+#pragma mark - AWSTranscribeStreamingTranscriptResultStream
 
 - (void)didReceiveEvent:(nullable AWSTranscribeStreamingTranscriptResultStream *)event
           decodingError:(nullable NSError *)decodingError {
@@ -134,8 +134,8 @@
     [self.transcribeStreaming endTranscription];
 }
 
-- (void)connectionStatusDidChange:(AWSTranscribeStreamingClientDelegateConnectionStatus)connectionStatus
-                        withError:(nullable NSError *)error {
+- (void)connectionStatusDidChange:(AWSTranscribeStreamingClientConnectionStatus)connectionStatus
+                        withError:(NSError *)error {
     if (error) {
         AWSDDLogError(@"WS connection change - Error %@", error);
         return;
@@ -143,7 +143,7 @@
 
     AWSDDLogDebug(@"WS connection change - Error %ld", (long) connectionStatus);
     switch (connectionStatus) {
-        case AWSTranscribeStreamingClientDelegateConnectionStatusConnected:
+        case AWSTranscribeStreamingClientConnectionStatusConnected:
             [self streamAudio];
             break;
         default:

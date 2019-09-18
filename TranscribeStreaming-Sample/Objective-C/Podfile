@@ -4,6 +4,6 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'TranscribeStreamingExampleWSSObjC' do
-  $awsVersion = '~> 2.10.0'
+  $awsVersion = '~> 2.11.0'
   pod 'AWSTranscribeStreaming', $awsVersion
 end
