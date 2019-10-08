@@ -1,47 +1,46 @@
 //
-//  ViewController.swift
-//  PhotoAlbum
+// Copyright 2018-2019 Amazon.com,
+// Inc. or its affiliates. All Rights Reserved.
 //
-//  Created by Edupuganti, Phani Srikar on 6/15/19.
-//  Copyright © 2019 AWSMobile. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
-import UIKit
-import AWSMobileClient
-import AWSAuthUI
-import AWSAuthCore
-import AWSS3
 import AWSAppSync
+import AWSAuthCore
+import AWSAuthUI
+import AWSMobileClient
+import AWSS3
+import UIKit
 
 class SignInViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         showSignIn()
     }
 
     func showSignIn() {
-        AWSMobileClient.sharedInstance().showSignIn(navigationController: self.navigationController!,
+        AWSMobileClient.sharedInstance().showSignIn(navigationController: navigationController!,
                                                     signInUIOptions: SignInUIOptions(
-                                                    canCancel: false,
-                                                    logoImage: UIImage(named: "AppLogo"),
-                                                    backgroundColor: UIColor.black)) {(signInState, error) in
-                guard error == nil else {
-                    print("error logging in: \(error!.localizedDescription)")
-                    return
-                }
+                                                        canCancel: false,
+                                                        logoImage: UIImage(named: "AppLogo"),
+                                                        backgroundColor: UIColor.black
+                                                    )) { signInState, error in
+            guard error == nil else {
+                print("error logging in: \(error!.localizedDescription)")
+                return
+            }
 
-                guard let signInState = signInState else {
-                    print("signInState unexpectedly empty in \(#function)")
-                    return
-                }
+            guard let signInState = signInState else {
+                print("signInState unexpectedly empty in \(#function)")
+                return
+            }
 
-                switch signInState {
-                case .signedIn:
-                    AWSServiceManager.signInHandler(parentViewController: self)
-                    //AWSServiceManager.initializeMobileClient()
-                default: return
-                }
+            switch signInState {
+            case .signedIn:
+                AWSServiceManager.signInHandler(parentViewController: self)
+            // AWSServiceManager.initializeMobileClient()
+            default: return
+            }
         }
     }
 }

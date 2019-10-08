@@ -1,24 +1,22 @@
 //
-//  AWSServiceManager.swift
-//  PhotoAlbum
+// Copyright 2018-2019 Amazon.com,
+// Inc. or its affiliates. All Rights Reserved.
 //
-//  Created by Edupuganti, Phani Srikar on 6/24/19.
-//  Copyright © 2019 AWSMobile. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
-import Foundation
-import AWSMobileClient
 import AWSAppSync
+import AWSMobileClient
 import AWSS3
+import Foundation
 
 class AWSServiceManager {
-
     static let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
     static var appSyncClient: AWSAppSyncClient?
     static var transferUtility: AWSS3TransferUtility?
 
     class func signOut(global: Bool, parentViewController: UIViewController?) {
-        AWSMobileClient.sharedInstance().signOut(options: SignOutOptions(signOutGlobally: global)) { (error) in
+        AWSMobileClient.sharedInstance().signOut(options: SignOutOptions(signOutGlobally: global)) { error in
             guard error == nil else {
                 print("Error: \(error.debugDescription)")
                 return
@@ -28,8 +26,8 @@ class AWSServiceManager {
     }
 
     class func initializeMobileClient() {
-        //AWSMobileClient.sharedInstance().signOut()
-        AWSMobileClient.sharedInstance().initialize { (userState, error) in
+        // AWSMobileClient.sharedInstance().signOut()
+        AWSMobileClient.sharedInstance().initialize { userState, error in
             guard error == nil else {
                 print("error: \(error!.localizedDescription)")
                 return
@@ -73,7 +71,7 @@ class AWSServiceManager {
         initializeMobileClient()
     }
 
-    //Todo: have a user state listener
+    // Todo: have a user state listener
 
     class func signInHandler(parentViewController: UIViewController?) {
         initializeTransferUtility()
@@ -84,34 +82,33 @@ class AWSServiceManager {
             return nil
         }
 
-        /*DispatchQueue.global().async(execute: {
-            AWSMobileClient.sharedInstance().getIdentityId().continueWith { (task) -> AnyObject? in
-            
-                
-                if let error = task.error {
-                    print("Error: \(error.localizedDescription)")
-                }
-                
-                if task.result != nil {
-                    print("task success!")
-                }
-                return nil
-            }
-        })*/
+        /* DispatchQueue.global().async(execute: {
+             AWSMobileClient.sharedInstance().getIdentityId().continueWith { (task) -> AnyObject? in
+
+                 if let error = task.error {
+                     print("Error: \(error.localizedDescription)")
+                 }
+
+                 if task.result != nil {
+                     print("task success!")
+                 }
+                 return nil
+             }
+         }) */
         print("logged in!")
 
-        /*AWSMobileClient.sharedInstance().getAWSCredentials { (credentials, error) in
+        /* AWSMobileClient.sharedInstance().getAWSCredentials { (credentials, error) in
             if let error = error {
                 print("\(error.localizedDescription)")
             } else if let credentials = credentials {
                 print(credentials.accessKey)
             }
-         }*/
+         } */
 
         var albums = [Album]()
 
-        let listAlbumsHandler: ([ListAlbumsQuery.Data.ListAlbum.Item?]?) -> Void = { (albumItems) in
-            if let albumItems = albumItems?.compactMap({$0}) {
+        let listAlbumsHandler: ([ListAlbumsQuery.Data.ListAlbum.Item?]?) -> Void = { albumItems in
+            if let albumItems = albumItems?.compactMap({ $0 }) {
                 albumItems.forEach { item in
                     print("inside getAlbums completion handler")
                     var vAlbum = Album(id: item.id, label: item.name, accessType: AccessSpecifier(rawValue: item.accesstype)!)
@@ -124,23 +121,19 @@ class AWSServiceManager {
     }
 
     class func presentSignInController(parentViewController: UIViewController?) {
-
         let signInViewController = storyBoard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
 
         presentViewController(viewController: signInViewController, parentViewController: parentViewController)
     }
 
     class func presentAlbumCollectionViewController(parentViewController: UIViewController?, albumCollection: [Album]) {
-
         let albumCollectionViewController = storyBoard.instantiateViewController(withIdentifier: "AlbumCollectionViewController") as! AlbumCollectionViewController
         albumCollectionViewController.albumCollection = albumCollection
 
         presentViewController(viewController: albumCollectionViewController, parentViewController: parentViewController)
-
     }
 
     class func presentViewController(viewController: UIViewController, parentViewController: UIViewController?) {
-
         let navigationController = UINavigationController(rootViewController: viewController)
 
         if let parentViewController = parentViewController {
@@ -159,14 +152,13 @@ class AWSServiceManager {
         formatter.dateFormat = "yyyy_MM_dd_hh_mm_ss"
         return (formatter.string(from: Date()) as NSString) as String
     }
-
 }
 
 // extension to use MobileClient as the default Auth Provider
 
 extension AWSMobileClient: AWSCognitoUserPoolsAuthProviderAsync {
     public func getLatestAuthToken(_ callback: @escaping (String?, Error?) -> Void) {
-        getTokens { (tokens, error) in
+        getTokens { tokens, error in
             if error != nil {
                 callback(nil, error)
             } else {

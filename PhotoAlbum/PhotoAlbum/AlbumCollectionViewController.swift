@@ -1,18 +1,16 @@
 //
-//  AlbumCollectionViewController.swift
-//  PhotoAlbum
+// Copyright 2018-2019 Amazon.com,
+// Inc. or its affiliates. All Rights Reserved.
 //
-//  Created by Edupuganti, Phani Srikar on 6/16/19.
-//  Copyright © 2019 AWSMobile. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
-import Foundation
-import UIKit
 import AWSAppSync
 import AWSMobileClient
+import Foundation
+import UIKit
 
 class AlbumCollectionViewController: UICollectionViewController {
-
     var albumCollection: [Album]!
     var selectedAlbum: Album!
 
@@ -21,7 +19,7 @@ class AlbumCollectionViewController: UICollectionViewController {
         static let albumToPhotoSegue = "AlbumToPhotoSegue"
     }
 
-    @IBOutlet weak var btnAddAlbum: UIBarButtonItem!
+    @IBOutlet var btnAddAlbum: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +29,11 @@ class AlbumCollectionViewController: UICollectionViewController {
 
     // MARK: - specify UICollectionView Data Source
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in _: UICollectionView) -> Int {
         return 1
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return albumCollection.count
     }
 
@@ -47,29 +45,28 @@ class AlbumCollectionViewController: UICollectionViewController {
         currentAlbumCell.albumCollectionViewCellDelegate = self
         currentAlbumCell.editMode = false
         currentAlbumCell.accessibilityIdentifier = albumCollection[indexPath.item].label
-        //currentAlbumCell.isAccessibilityElement = true
+        // currentAlbumCell.isAccessibilityElement = true
         currentAlbumCell.albumImageName = albumCollection[indexPath.item].getAlbumImage()
         return currentAlbumCell
     }
 
-    @IBAction func addAlbumDidTap(_ sender: Any) {
-
+    @IBAction func addAlbumDidTap(_: Any) {
         presentAccessSpecifierAlert()
     }
 
     private func presentAccessSpecifierAlert() {
         let accessSpecifierAlert = UIAlertController(title: "Name and Access", message: "Choose Access", preferredStyle: .alert)
 
-        accessSpecifierAlert.addTextField { (textField) in
+        accessSpecifierAlert.addTextField { textField in
             textField.placeholder = "My Album Name"
         }
-        let publicAction = UIAlertAction(title: "Public", style: .default) {(_) in
+        let publicAction = UIAlertAction(title: "Public", style: .default) { _ in
             self.addAlbumUtil(accessType: AccessSpecifier.Public, label: accessSpecifierAlert.textFields?.first?.text)
         }
-        let privateAction = UIAlertAction(title: "Private", style: .default) {(_) in
+        let privateAction = UIAlertAction(title: "Private", style: .default) { _ in
             self.addAlbumUtil(accessType: AccessSpecifier.Private, label: accessSpecifierAlert.textFields?.first?.text)
         }
-        let protectedAction = UIAlertAction(title: "Protected", style: .default) {(_) in
+        let protectedAction = UIAlertAction(title: "Protected", style: .default) { _ in
             self.addAlbumUtil(accessType: AccessSpecifier.Protected, label: accessSpecifierAlert.textFields?.first?.text)
         }
         accessSpecifierAlert.addAction(publicAction)
@@ -79,7 +76,6 @@ class AlbumCollectionViewController: UICollectionViewController {
     }
 
     private func addAlbumUtil(accessType: AccessSpecifier, label: String?) {
-
         let numberAlbumsPresent = albumCollection.count
         var newAlbumLabel: String!
         if label == nil || label == "" {
@@ -91,7 +87,7 @@ class AlbumCollectionViewController: UICollectionViewController {
 
         // Todo: Use a Data Store to which both UI and Data Layers confirm to
         // for better handling of concurrency
-        let addAlbumHandler: (GraphQLID) -> Void = { (albumId) in
+        let addAlbumHandler: (GraphQLID) -> Void = { albumId in
             newAlbum = Album(id: albumId, label: newAlbumLabel, accessType: accessType)
             // update the local album Collection
             self.albumCollection.append(newAlbum)
@@ -104,7 +100,7 @@ class AlbumCollectionViewController: UICollectionViewController {
         GraphQLAlbumCollectionOperation.addAlbum(label: newAlbumLabel, accessType: accessType, addAlbumHandler)
     }
 
-    @IBAction func signOutTap(_ sender: Any) {
+    @IBAction func signOutTap(_: Any) {
         AWSServiceManager.signOut(global: true, parentViewController: self)
     }
 
@@ -121,26 +117,26 @@ class AlbumCollectionViewController: UICollectionViewController {
         }
     }
 
-    //Todo: do not wait for data fetch. Do something in UI -- talk to others
+    // Todo: do not wait for data fetch. Do something in UI -- talk to others
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var photos = [Photo]()
 
         guard let currAlbumCell = collectionView.cellForItem(at: indexPath) as? AlbumCollectionViewCell,
-              let selectedAlbumId = currAlbumCell.albumId else {
-                print("Could not fetch albumID for selected Album")
-                return
+            let selectedAlbumId = currAlbumCell.albumId else {
+            print("Could not fetch albumID for selected Album")
+            return
         }
 
-        let getSelectedAlbumHandler: (GetAlbumQuery.Data.GetAlbum?) -> Void = { (album) in
+        let getSelectedAlbumHandler: (GetAlbumQuery.Data.GetAlbum?) -> Void = { album in
             guard let album = album else {
                 print("Could not fetch selected album")
                 return
             }
 
-            if let photoItems = album.photos?.items?.compactMap({$0}) {
+            if let photoItems = album.photos?.items?.compactMap({ $0 }) {
                 photoItems.forEach { item in
                     print("inside getSelectedAlbum completion handler")
-                    let vPhoto = Photo(id: (item.id), name: item.name, bucket: item.bucket, key: item.key, backedUp: true, thumbnail: nil)
+                    let vPhoto = Photo(id: item.id, name: item.name, bucket: item.bucket, key: item.key, backedUp: true, thumbnail: nil)
                     photos.append(vPhoto)
                 }
             }
@@ -152,10 +148,10 @@ class AlbumCollectionViewController: UICollectionViewController {
         GraphQLPhotoCollectionOperation.getSelectedAlbum(id: selectedAlbumId, getSelectedAlbumHandler)
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
         if segue.identifier == StoryBoard.albumToPhotoSegue {
             let photoCollectionViewController = segue.destination as! PhotoCollectionViewController
-            photoCollectionViewController.selectedAlbum = self.selectedAlbum
+            photoCollectionViewController.selectedAlbum = selectedAlbum
         }
     }
 }
@@ -163,10 +159,9 @@ class AlbumCollectionViewController: UICollectionViewController {
 extension AlbumCollectionViewController: AlbumCollectionViewCellDelegate {
     func deleteAlbum(cell: AlbumCollectionViewCell) {
         if let indexPath = self.collectionView?.indexPath(for: cell) {
-
-            let deleteAlbumHandler: (GraphQLID) -> Void = { (albumId) in
+            let deleteAlbumHandler: (GraphQLID) -> Void = { albumId in
                 // update the local albumCollection object
-                guard let deleteIndex = self.albumCollection.firstIndex(where: {$0.id == albumId}) else {
+                guard let deleteIndex = self.albumCollection.firstIndex(where: { $0.id == albumId }) else {
                     self.collectionView.deleteItems(at: [indexPath])
                     print("albumId not found in data store")
                     return
@@ -180,17 +175,17 @@ extension AlbumCollectionViewController: AlbumCollectionViewCellDelegate {
 
     func updateAlbumName(cell: AlbumCollectionViewCell) {
         print("album edit end triggered")
-        GraphQLAlbumCollectionOperation.updateAlbum(id: cell.albumId, label: cell.albumTitleField.text, accessType: selectedAlbum.accessType, { (updatedAlbumId) in
+        GraphQLAlbumCollectionOperation.updateAlbum(id: cell.albumId, label: cell.albumTitleField.text, accessType: selectedAlbum.accessType) { updatedAlbumId in
             guard updatedAlbumId != nil else {
-                    cell.albumTitleField.text = cell.albumTitle
-                    print("album name could not be editted")
-                    return
-                }
+                cell.albumTitleField.text = cell.albumTitle
+                print("album name could not be editted")
+                return
+            }
             let newText = cell.albumTitleField.text ?? ""
 
             cell.albumTitle = newText
             cell.accessibilityIdentifier = newText
             cell.albumTitleField.accessibilityIdentifier = newText + "_name"
-            })
+        }
     }
 }

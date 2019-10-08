@@ -1,17 +1,16 @@
 //
-//  RemoteStorage.swift
-//  PhotoAlbum
+// Copyright 2018-2019 Amazon.com,
+// Inc. or its affiliates. All Rights Reserved.
 //
-//  Created by Edupuganti, Phani Srikar on 6/18/19.
-//  Copyright © 2019 AWSMobile. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
-import Foundation
-import UIKit
-import AWSAuthUI
 import AWSAuthCore
+import AWSAuthUI
 import AWSMobileClient
 import AWSS3
+import Foundation
+import UIKit
 
 class RemoteStorage {
     static let bucketName: String = getBucketNameFromAWSConfig()
@@ -20,7 +19,6 @@ class RemoteStorage {
     class func putImageInBucket(img: UIImage!, id: String!, accessType: AccessSpecifier,
                                 uploadExpression: AWSS3TransferUtilityUploadExpression,
                                 uploadCompletionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?) {
-
         let rawImage: Data! = img.pngData()
         guard let transferUtility = AWSServiceManager.transferUtility else {
             print("transfer utility could not be initialized properly")
@@ -33,23 +31,21 @@ class RemoteStorage {
                                    contentType: "image/png",
                                    expression: uploadExpression,
                                    completionHandler: uploadCompletionHandler).continueWith { (task) -> AnyObject? in
-                                    if let error = task.error {
-                                        print("Error: \(error.localizedDescription)")
-                                    }
+            if let error = task.error {
+                print("Error: \(error.localizedDescription)")
+            }
 
-                                    if task.result != nil {
-                                        print("Upload successful.")
-                                    }
-                                    return nil
+            if task.result != nil {
+                print("Upload successful.")
+            }
+            return nil
         }
-
     }
 
     class func getImageFromBucket(id: String!,
                                   accessType: AccessSpecifier,
                                   downloadExpression: AWSS3TransferUtilityDownloadExpression,
                                   downloadCompletionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?) {
-
         guard let transferUtility = AWSServiceManager.transferUtility else {
             print("transfer utility could not be initialized properly")
             return
@@ -57,24 +53,23 @@ class RemoteStorage {
 
         transferUtility.downloadData(fromBucket: bucketName,
                                      key: getKeyFromReference(reference: id, accessType: accessType),
-                                    expression: downloadExpression,
-                                    completionHandler: downloadCompletionHandler
-                                    ).continueWith { (task) -> AnyObject? in
-                                        if let error = task.error {
-                                            print("Error: \(error.localizedDescription)")
-                                        }
+                                     expression: downloadExpression,
+                                     completionHandler: downloadCompletionHandler).continueWith { (task) -> AnyObject? in
+            if let error = task.error {
+                print("Error: \(error.localizedDescription)")
+            }
 
-                                        if task.result != nil {
-                                            print("download success!")
-                                        }
-                                        return nil
-                                    }
+            if task.result != nil {
+                print("download success!")
+            }
+            return nil
+        }
     }
 
     class func getKeyFromReference(reference: String!, accessType: AccessSpecifier!) -> String! {
         return accessType.rawValue.lowercased() + "/" + RemoteStorage.userIdentityId + "/" + reference
     }
-    
+
     class func getBucketNameFromAWSConfig() -> String {
         var defaultBucketName: String = ""
         if let pathToConfigurationFile = Bundle.main.path(forResource: "awsconfiguration", ofType: "json") {
@@ -89,7 +84,7 @@ class RemoteStorage {
                         }
                     }
                 }
-            } catch let error {
+            } catch {
                 print(error.localizedDescription)
             }
         }

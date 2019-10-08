@@ -1,15 +1,14 @@
 //
-//  PhotoCollectionViewController.swift
-//  PhotoAlbum
+// Copyright 2018-2019 Amazon.com,
+// Inc. or its affiliates. All Rights Reserved.
 //
-//  Created by Edupuganti, Phani Srikar on 6/17/19.
-//  Copyright © 2019 AWSMobile. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
-import Foundation
-import UIKit
 import AWSAppSync
 import AWSS3
+import Foundation
+import UIKit
 
 class PhotoCollectionViewController: UICollectionViewController {
     var selectedAlbum: Album!
@@ -20,7 +19,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         static let expandPhotoSegue = "ExpandPhotoSegue"
     }
 
-    @IBOutlet weak var btnAddPhoto: UIBarButtonItem!
+    @IBOutlet var btnAddPhoto: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +29,11 @@ class PhotoCollectionViewController: UICollectionViewController {
 
     // MARK: - specify UICollectionView Data Source
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in _: UICollectionView) -> Int {
         return 1
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return selectedAlbum.photos.count
     }
 
@@ -50,12 +49,11 @@ class PhotoCollectionViewController: UICollectionViewController {
         return currentPhotoCell
     }
 
-    @IBAction func addPhotoDidTap(_ sender: Any) {
-
+    @IBAction func addPhotoDidTap(_: Any) {
         let numberPhotosPresent = selectedAlbum.photos.count
 
-        //Todo: Implement selection from device
-        // Randomly pick from the Assets 
+        // Todo: Implement selection from device
+        // Randomly pick from the Assets
         let availableAssets: [String] = ["pic1", "pic2", "pic3", "pic4"]
         let randomIndex = Int(arc4random_uniform(UInt32(availableAssets.count)))
         let givenImage: UIImage! = UIImage(named: availableAssets[randomIndex])
@@ -71,14 +69,14 @@ class PhotoCollectionViewController: UICollectionViewController {
             return
         }
 
-        let addPhotoHandler: (GraphQLID) -> Void = { (photoId) in
+        let addPhotoHandler: (GraphQLID) -> Void = { photoId in
             newPhoto = Photo(id: photoId, name: newPhotoName, bucket: newPhotoBucket,
                              key: newPhotoName, backedUp: true, thumbnail: thumbnail)
 
-            //update the local albumCollection object
+            // update the local albumCollection object
             self.selectedAlbum.appendPhoto(photo: newPhoto)
 
-            //update the UI -- AlbumCollectionView
+            // update the UI -- AlbumCollectionView
             let addIndexPhoto = IndexPath(item: numberPhotosPresent, section: 0)
             self.collectionView?.insertItems(at: [addIndexPhoto])
         }
@@ -93,13 +91,13 @@ class PhotoCollectionViewController: UICollectionViewController {
 
             if task.status == .completed {
                 print("Upload successful.")
-                DispatchQueue.main.async(execute: {
+                DispatchQueue.main.async {
                     GraphQLPhotoCollectionOperation.addPhoto(name: newPhotoName,
                                                              bucket: newPhotoBucket,
                                                              key: newPhotoName,
                                                              albumId: self.selectedAlbum.id,
                                                              addPhotoHandler)
-                })
+                }
             }
         }
 
@@ -111,13 +109,13 @@ class PhotoCollectionViewController: UICollectionViewController {
                                        uploadExpression: uploadExpression,
                                        uploadCompletionHandler: uploadCompletionHandler)
         RemoteStorage.putImageInBucket(img: givenImage,
-                                       id: newPhotoName + "_big", //get image name/ get image thumbnail name
+                                       id: newPhotoName + "_big", // get image name/ get image thumbnail name
                                        accessType: selectedAlbum.accessType,
                                        uploadExpression: AWSS3TransferUtilityUploadExpression(),
                                        uploadCompletionHandler: nil)
     }
 
-    @IBAction func btnSignOutTap(_ sender: Any) {
+    @IBAction func btnSignOutTap(_: Any) {
         AWSServiceManager.signOut(global: true, parentViewController: self)
     }
 
@@ -134,10 +132,10 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
 
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let currPhotoCell = self.collectionView?.cellForItem(at: indexPath) as? PhotoCollectionViewCell {
             var selectedPhotos = selectedAlbum.photos
-            for selectedIndex in 0..<selectedPhotos.count {
+            for selectedIndex in 0 ..< selectedPhotos.count {
                 if selectedPhotos[selectedIndex].id == currPhotoCell.photoId {
                     selectedPhoto = selectedPhotos[selectedIndex]
                     break
@@ -147,7 +145,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         performSegue(withIdentifier: StoryBoard.expandPhotoSegue, sender: self)
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
         if segue.identifier == StoryBoard.expandPhotoSegue {
             let expandPhotoViewController = segue.destination as! ExpandPhotoViewController
             expandPhotoViewController.selectedPhoto = selectedPhoto
@@ -158,7 +156,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     public func generateThumbnail(image: UIImage, size: CGSize) -> UIImage? {
         let originalSize = image.size
 
-        let widthRatio  = size.width  / originalSize.width
+        let widthRatio = size.width / originalSize.width
         let heightRatio = size.height / originalSize.height
         let compressionRatio = min(widthRatio, heightRatio)
         let compressedSize = CGSize(width: originalSize.width * compressionRatio, height: originalSize.height * compressionRatio)
@@ -167,7 +165,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         image.draw(in: rect)
         let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        //displayCompressionRatio(givenImage: image, thumbnail: thumbnailImage)
+        // displayCompressionRatio(givenImage: image, thumbnail: thumbnailImage)
         return thumbnailImage
     }
 
@@ -184,11 +182,10 @@ class PhotoCollectionViewController: UICollectionViewController {
 extension PhotoCollectionViewController: PhotoCollectionViewCellDelegate {
     func deletePhoto(cell: PhotoCollectionViewCell) {
         if let indexPath = self.collectionView?.indexPath(for: cell) {
-
-            let deletePhotoHandler: (GraphQLID) -> Void = { (photoId) in
-                //update the local albumCollection object
+            let deletePhotoHandler: (GraphQLID) -> Void = { photoId in
+                // update the local albumCollection object
                 var selectedPhotos = self.selectedAlbum.photos
-                guard let deleteIndex = selectedPhotos.firstIndex(where: {$0.id == photoId}) else {
+                guard let deleteIndex = selectedPhotos.firstIndex(where: { $0.id == photoId }) else {
                     cell.photoThumbnail.image = nil
                     self.collectionView.deleteItems(at: [indexPath])
                     print("photoId not found in data store")

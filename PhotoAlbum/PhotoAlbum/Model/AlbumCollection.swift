@@ -1,16 +1,14 @@
 //
-//  AlbumCollection.swift
-//  PhotoAlbum
+// Copyright 2018-2019 Amazon.com,
+// Inc. or its affiliates. All Rights Reserved.
 //
-//  Created by Edupuganti, Phani Srikar on 6/16/19.
-//  Copyright © 2019 AWSMobile. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
-import Foundation
 import AWSAppSync
+import Foundation
 
 struct AlbumCollection {
-
     let username: String
     let albums: [Album]
 

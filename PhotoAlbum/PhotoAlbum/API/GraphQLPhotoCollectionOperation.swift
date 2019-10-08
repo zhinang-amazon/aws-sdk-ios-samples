@@ -1,21 +1,18 @@
 //
-//  GraphQLPhotoCollectionOperation.swift
-//  PhotoAlbum
+// Copyright 2018-2019 Amazon.com,
+// Inc. or its affiliates. All Rights Reserved.
 //
-//  Created by Edupuganti, Phani Srikar on 6/20/19.
-//  Copyright © 2019 AWSMobile. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
-import Foundation
 import AWSAppSync
 import AWSMobileClient
+import Foundation
 
 class GraphQLPhotoCollectionOperation {
-
     class func getSelectedAlbum(id: GraphQLID, _ completion: @escaping (GetAlbumQuery.Data.GetAlbum?) -> Void) {
-
         let getSelectedAlbumQuery = GetAlbumQuery(id: id)
-        AWSServiceManager.appSyncClient?.fetch(query: getSelectedAlbumQuery, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
+        AWSServiceManager.appSyncClient?.fetch(query: getSelectedAlbumQuery, cachePolicy: .fetchIgnoringCacheData) { result, error in
             if error != nil {
                 print(error?.localizedDescription ?? "")
                 return
@@ -27,9 +24,9 @@ class GraphQLPhotoCollectionOperation {
     class func addPhoto(name: String!, bucket: String!, key: String!, albumId: GraphQLID, _ completion: @escaping (GraphQLID) -> Void) {
         let addPhotoInput = CreatePhotoInput(name: name, bucket: bucket, key: key, photoAlbumId: albumId)
 
-        AWSServiceManager.appSyncClient?.perform(mutation: CreatePhotoMutation(input: addPhotoInput)) { (result, error) in
+        AWSServiceManager.appSyncClient?.perform(mutation: CreatePhotoMutation(input: addPhotoInput)) { result, error in
             if let error = error as? AWSAppSyncClientError {
-                print("Error occurred: \(error.localizedDescription )")
+                print("Error occurred: \(error.localizedDescription)")
             }
             if let resultError = result?.errors {
                 print("Error saving the item on server: \(resultError)")
@@ -47,9 +44,9 @@ class GraphQLPhotoCollectionOperation {
     class func deletePhoto(id: GraphQLID!, _ completion: @escaping (GraphQLID) -> Void) {
         let deletePhotoInput = DeletePhotoInput(id: id)
 
-        AWSServiceManager.appSyncClient?.perform(mutation: DeletePhotoMutation(input: deletePhotoInput)) { (result, error) in
+        AWSServiceManager.appSyncClient?.perform(mutation: DeletePhotoMutation(input: deletePhotoInput)) { result, error in
             if let error = error as? AWSAppSyncClientError {
-                print("Error occurred: \(error.localizedDescription )")
+                print("Error occurred: \(error.localizedDescription)")
             }
             if let resultError = result?.errors {
                 print("Error saving the item on server: \(resultError)")
@@ -63,5 +60,4 @@ class GraphQLPhotoCollectionOperation {
             completion(deletePhotoResponse.id)
         }
     }
-
 }

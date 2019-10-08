@@ -1,26 +1,24 @@
 //
-//  PhotoCollectionViewCell.swift
-//  PhotoAlbum
+// Copyright 2018-2019 Amazon.com,
+// Inc. or its affiliates. All Rights Reserved.
 //
-//  Created by Edupuganti, Phani Srikar on 6/17/19.
-//  Copyright © 2019 AWSMobile. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
+import AWSAppSync
+import AWSMobileClient
+import AWSS3
 import Foundation
 import UIKit
-import AWSS3
-import AWSMobileClient
-import AWSAppSync
 
-protocol PhotoCollectionViewCellDelegate: class {
+protocol PhotoCollectionViewCellDelegate: AnyObject {
     func deletePhoto(cell: PhotoCollectionViewCell)
 }
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-
-    @IBOutlet weak var photoThumbnail: UIImageView!
-    @IBOutlet weak var photoDeleteBackgroundView: UIVisualEffectView!
-    @IBOutlet weak var photoThumbnailDownloadProgressView: UIProgressView!
+    @IBOutlet var photoThumbnail: UIImageView!
+    @IBOutlet var photoDeleteBackgroundView: UIVisualEffectView!
+    @IBOutlet var photoThumbnailDownloadProgressView: UIProgressView!
 
     weak var photoCollectionViewCellDelegate: PhotoCollectionViewCellDelegate?
 
@@ -35,44 +33,42 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
     var photoImageName: String! {
         didSet {
-
             // store the actual sized image in s3
             // use only thumbnail to display
-            self.photoThumbnailDownloadProgressView.progress = 0.0
+            photoThumbnailDownloadProgressView.progress = 0.0
 
             let downloadExpression = AWSS3TransferUtilityDownloadExpression()
-            downloadExpression.progressBlock = {(task, progress) in
-                DispatchQueue.main.async(execute: {
+            downloadExpression.progressBlock = { _, progress in
+                DispatchQueue.main.async {
                     if self.photoThumbnailDownloadProgressView.progress < Float(progress.fractionCompleted) {
                         self.photoThumbnailDownloadProgressView.progress = Float(progress.fractionCompleted)
                     }
-                })
+                }
             }
 
             var downloadCompletionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
 
-            downloadCompletionHandler = { (task, URL, data, error) -> Void in
+            downloadCompletionHandler = { (task, _, data, error) -> Void in
                 if let error = error {
                     print("Error: \(error.localizedDescription)")
                 }
 
                 if task.status == .completed {
                     print("Download successful.")
-                    DispatchQueue.main.async(execute: {
+                    DispatchQueue.main.async {
                         self.photoThumbnail.image = UIImage(data: data!)
-                    })
+                    }
                 }
             }
 
-            RemoteStorage.getImageFromBucket(id: self.photoImageName + "_small",
-                                             accessType: self.accessType,
+            RemoteStorage.getImageFromBucket(id: photoImageName + "_small",
+                                             accessType: accessType,
                                              downloadExpression: downloadExpression,
                                              downloadCompletionHandler: downloadCompletionHandler)
         }
     }
 
-    @IBAction func deletePhotoDidTap(_ sender: Any) {
+    @IBAction func deletePhotoDidTap(_: Any) {
         photoCollectionViewCellDelegate?.deletePhoto(cell: self)
     }
-
 }

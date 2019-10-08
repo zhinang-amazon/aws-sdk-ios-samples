@@ -1,13 +1,12 @@
 //
-//  Album.swift
-//  PhotoAlbum
+// Copyright 2018-2019 Amazon.com,
+// Inc. or its affiliates. All Rights Reserved.
 //
-//  Created by Edupuganti, Phani Srikar on 6/15/19.
-//  Copyright © 2019 AWSMobile. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
-import Foundation
 import AWSAppSync
+import Foundation
 
 //todo: include ownership and sharing
 
@@ -47,11 +46,10 @@ struct Album {
     }
 
     mutating func appendPhoto(photo: Photo) {
-        self.photos.append(photo)
+        photos.append(photo)
     }
 
     mutating func setPhotos(photos: [Photo]) {
         self.photos = photos
     }
-
 }

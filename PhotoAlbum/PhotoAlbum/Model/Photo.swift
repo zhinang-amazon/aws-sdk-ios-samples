@@ -1,16 +1,14 @@
 //
-//  Photo.swift
-//  PhotoAlbum
+// Copyright 2018-2019 Amazon.com,
+// Inc. or its affiliates. All Rights Reserved.
 //
-//  Created by Edupuganti, Phani Srikar on 6/15/19.
-//  Copyright © 2019 AWSMobile. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
-import Foundation
 import AWSAppSync
+import Foundation
 
 struct Photo {
-
     let id: GraphQLID
     let name: String
     let bucket: String
@@ -30,5 +28,4 @@ struct Photo {
         }
         self.thumbnail = thumbnail
     }
-
 }
