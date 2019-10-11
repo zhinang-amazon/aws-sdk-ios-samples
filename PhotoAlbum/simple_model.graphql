@@ -1,4 +1,4 @@
-type Album @model @auth(rules: [{allow: owner}]) {
+type Album @model @auth(rules: [{ allow: owner }]) {
     id: ID!
     username: String!
     name: String!

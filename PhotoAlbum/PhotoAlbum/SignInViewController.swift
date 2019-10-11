@@ -19,12 +19,11 @@ class SignInViewController: UIViewController {
     }
 
     func showSignIn() {
-        AWSMobileClient.sharedInstance().showSignIn(navigationController: navigationController!,
-                                                    signInUIOptions: SignInUIOptions(
-                                                        canCancel: false,
-                                                        logoImage: UIImage(named: "AppLogo"),
-                                                        backgroundColor: UIColor.black
-                                                    )) { signInState, error in
+        AWSMobileClient.default().showSignIn(navigationController: navigationController!,
+                                             signInUIOptions: SignInUIOptions(
+                                                 canCancel: false,
+                                                 logoImage: UIImage(named: "AppLogo")
+                                             )) { signInState, error in
             guard error == nil else {
                 print("error logging in: \(error!.localizedDescription)")
                 return

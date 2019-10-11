@@ -16,28 +16,32 @@ class AWSServiceManager {
     static var transferUtility: AWSS3TransferUtility?
 
     class func signOut(global: Bool, parentViewController: UIViewController?) {
-        AWSMobileClient.sharedInstance().signOut(options: SignOutOptions(signOutGlobally: global)) { error in
+        AWSMobileClient.default().signOut(options: SignOutOptions(signOutGlobally: global)) { error in
             guard error == nil else {
                 print("Error: \(error.debugDescription)")
                 return
             }
-            presentSignInController(parentViewController: parentViewController)
+            DispatchQueue.main.async {
+                presentSignInController(parentViewController: parentViewController)
+            }
         }
     }
 
     class func initializeMobileClient() {
         // AWSMobileClient.sharedInstance().signOut()
-        AWSMobileClient.sharedInstance().initialize { userState, error in
+        AWSMobileClient.default().initialize { userState, error in
             guard error == nil else {
                 print("error: \(error!.localizedDescription)")
                 return
             }
 
-            if let userState = userState {
-                switch userState {
-                case .signedIn:
-                    signInHandler(parentViewController: nil)
-                default: presentSignInController(parentViewController: nil)
+            DispatchQueue.main.async {
+                if let userState = userState {
+                    switch userState {
+                    case .signedIn:
+                        signInHandler(parentViewController: nil)
+                    default: presentSignInController(parentViewController: nil)
+                    }
                 }
             }
         }
@@ -51,9 +55,11 @@ class AWSServiceManager {
             // default configuration writes cache to the disk
             let cacheConfiguration = try AWSAppSyncCacheConfiguration()
             let appSyncServiceConfig = try AWSAppSyncServiceConfig()
-            let appSyncConfig = try AWSAppSyncClientConfiguration(appSyncServiceConfig: appSyncServiceConfig,
-                                                                  userPoolsAuthProvider: AWSMobileClient.sharedInstance(),
-                                                                  cacheConfiguration: cacheConfiguration)
+            let appSyncConfig = try AWSAppSyncClientConfiguration(
+                appSyncServiceConfig: appSyncServiceConfig,
+                userPoolsAuthProvider: AWSMobileClient.default(),
+                cacheConfiguration: cacheConfiguration
+            )
             appSyncClient = try AWSAppSyncClient(appSyncConfig: appSyncConfig)
 
             // Set id as the cache key for objects.
@@ -77,8 +83,8 @@ class AWSServiceManager {
         initializeTransferUtility()
         initializeAppSyncClient()
 
-        AWSMobileClient.sharedInstance().credentials().continueWith { (_) -> Any? in
-            print(AWSMobileClient.sharedInstance().identityId)
+        AWSMobileClient.default().credentials().continueWith { (_) -> Any? in
+            print(String(describing: AWSMobileClient.default().identityId))
             return nil
         }
 
@@ -111,11 +117,16 @@ class AWSServiceManager {
             if let albumItems = albumItems?.compactMap({ $0 }) {
                 albumItems.forEach { item in
                     print("inside getAlbums completion handler")
-                    var vAlbum = Album(id: item.id, label: item.name, accessType: AccessSpecifier(rawValue: item.accesstype)!)
+                    let vAlbum = Album(id: item.id, label: item.name, accessType: AccessSpecifier(rawValue: item.accesstype)!)
                     albums.append(vAlbum)
                 }
             }
-            AWSServiceManager.presentAlbumCollectionViewController(parentViewController: parentViewController, albumCollection: albums)
+            DispatchQueue.main.async {
+                AWSServiceManager.presentAlbumCollectionViewController(
+                    parentViewController: parentViewController,
+                    albumCollection: albums
+                )
+            }
         }
         GraphQLAlbumCollectionOperation.getAlbumsInCollection(listAlbumsHandler)
     }
@@ -127,10 +138,17 @@ class AWSServiceManager {
     }
 
     class func presentAlbumCollectionViewController(parentViewController: UIViewController?, albumCollection: [Album]) {
-        let albumCollectionViewController = storyBoard.instantiateViewController(withIdentifier: "AlbumCollectionViewController") as! AlbumCollectionViewController
-        albumCollectionViewController.albumCollection = albumCollection
+        DispatchQueue.main.async {
+            let albumCollectionViewController = storyBoard.instantiateViewController(
+                withIdentifier: "AlbumCollectionViewController"
+            ) as! AlbumCollectionViewController
+            albumCollectionViewController.albumCollection = albumCollection
 
-        presentViewController(viewController: albumCollectionViewController, parentViewController: parentViewController)
+            presentViewController(
+                viewController: albumCollectionViewController,
+                parentViewController: parentViewController
+            )
+        }
     }
 
     class func presentViewController(viewController: UIViewController, parentViewController: UIViewController?) {

@@ -9,8 +9,8 @@ excluded:
 - Carthage
 - Pods
 - SwiftLint/Common/3rdPartyLib
-- API.swift
-- PhotoAlbum/Album.swift
+- PhotoAlbum/API/API.swift
+- PhotoAlbum/Model/Album.swift
 line_length:
     warning: 150
     error: 200

@@ -23,15 +23,5 @@ target 'PhotoAlbum' do
   
   target 'PhotoAlbumUITests' do
     use_frameworks!
-    # Pods for PhotoAlbumUITests
-    pod 'AWSAuthCore'
-    pod 'AWSCognitoIdentityProvider'
-    pod 'AWSCognitoIdentityProviderASF'
-    pod 'AWSCore'
-    pod 'AWSMobileClient'
-    pod 'AWSUserPoolsSignIn'
-    pod 'AWSAuthUI'
-    pod 'AWSS3'
-    pod 'AWSAppSync'
   end
 end

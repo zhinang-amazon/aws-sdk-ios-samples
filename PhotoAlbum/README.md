@@ -72,8 +72,8 @@ This sample app demonstrates how to use the Authentication, Storage and AppSync 
       REST
     ? Provide API name: PhotoAlbum
     ? Choose an authorization type for the API (Use arrow keys)
-    ❯ API key
-      Amazon Cognito User Pool
+      API key
+    > Amazon Cognito User Pool
     ? Do you have an annotated GraphQL schema? Yes
     ? Provide your schema file path: simple_model.graphql
     
@@ -96,7 +96,7 @@ This sample app demonstrates how to use the Authentication, Storage and AppSync 
 
 ## NOTES
 
-1. The app initializes ```AWSMobileClient.sharedInstance(), AWSAppSyncClient() and AWSS3TransferUtility.default() ``` in the ```AWSServiceManager.swift``` file to access Authentication, API and Storage respectively. Please refer to this file for more information.
+1. The app initializes ```AWSMobileClient.default(), AWSAppSyncClient() and AWSS3TransferUtility.default() ``` in the ```AWSServiceManager.swift``` file to access Authentication, API and Storage respectively. Please refer to this file for more information.
 
 1. In order to run the UI Tests for the demo app, please sign up a test user and add the test user credentials in the ```UIActions.swift``` file here: 
     ```
