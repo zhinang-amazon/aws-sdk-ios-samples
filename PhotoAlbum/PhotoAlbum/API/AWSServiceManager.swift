@@ -28,7 +28,7 @@ class AWSServiceManager {
     }
 
     class func initializeMobileClient() {
-        // AWSMobileClient.sharedInstance().signOut()
+        // AWSMobileClient.default().signOut()
         AWSMobileClient.default().initialize { userState, error in
             guard error == nil else {
                 print("error: \(error!.localizedDescription)")
@@ -89,7 +89,7 @@ class AWSServiceManager {
         }
 
         /* DispatchQueue.global().async(execute: {
-             AWSMobileClient.sharedInstance().getIdentityId().continueWith { (task) -> AnyObject? in
+             AWSMobileClient.default().getIdentityId().continueWith { (task) -> AnyObject? in
 
                  if let error = task.error {
                      print("Error: \(error.localizedDescription)")
@@ -103,7 +103,7 @@ class AWSServiceManager {
          }) */
         print("logged in!")
 
-        /* AWSMobileClient.sharedInstance().getAWSCredentials { (credentials, error) in
+        /* AWSMobileClient.default().getAWSCredentials { (credentials, error) in
             if let error = error {
                 print("\(error.localizedDescription)")
             } else if let credentials = credentials {

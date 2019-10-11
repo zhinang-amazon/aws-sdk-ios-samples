@@ -14,7 +14,7 @@ import UIKit
 
 class RemoteStorage {
     static let bucketName: String = getBucketNameFromAWSConfig()
-    static let userIdentityId: String = AWSMobileClient.sharedInstance().identityId!
+    static let userIdentityId: String = AWSMobileClient.default().identityId!
 
     class func putImageInBucket(img: UIImage!, id: String!, accessType: AccessSpecifier,
                                 uploadExpression: AWSS3TransferUtilityUploadExpression,

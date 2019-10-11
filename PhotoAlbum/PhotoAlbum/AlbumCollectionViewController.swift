@@ -77,18 +77,17 @@ class AlbumCollectionViewController: UICollectionViewController {
 
     private func addAlbumUtil(accessType: AccessSpecifier, label: String?) {
         let numberAlbumsPresent = albumCollection.count
-        var newAlbumLabel: String!
-        if label == nil || label == "" {
-            newAlbumLabel = AWSServiceManager.getTimeStampForTitle()
-        } else {
+        let newAlbumLabel: String
+        if let label = label, !label.isEmpty {
             newAlbumLabel = label
+        } else {
+            newAlbumLabel = AWSServiceManager.getTimeStampForTitle()
         }
-        var newAlbum: Album!
 
         // Todo: Use a Data Store to which both UI and Data Layers confirm to
         // for better handling of concurrency
         let addAlbumHandler: (GraphQLID) -> Void = { albumId in
-            newAlbum = Album(id: albumId, label: newAlbumLabel, accessType: accessType)
+            let newAlbum = Album(id: albumId, label: newAlbumLabel, accessType: accessType)
             // update the local album Collection
             self.albumCollection.append(newAlbum)
 

@@ -134,13 +134,8 @@ class PhotoCollectionViewController: UICollectionViewController {
 
     override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let currPhotoCell = self.collectionView?.cellForItem(at: indexPath) as? PhotoCollectionViewCell {
-            var selectedPhotos = selectedAlbum.photos
-            for selectedIndex in 0 ..< selectedPhotos.count {
-                if selectedPhotos[selectedIndex].id == currPhotoCell.photoId {
-                    selectedPhoto = selectedPhotos[selectedIndex]
-                    break
-                }
-            }
+            let selectedPhotos = selectedAlbum.photos
+            selectedPhoto = selectedPhotos.first { $0.id == currPhotoCell.photoId }
         }
         performSegue(withIdentifier: StoryBoard.expandPhotoSegue, sender: self)
     }
