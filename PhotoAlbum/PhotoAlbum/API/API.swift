@@ -584,7 +584,7 @@ public final class CreateAlbumMutation: GraphQLMutation {
     }
 
     public var variables: GraphQLMap? {
-        return ["input": input]
+        ["input": input]
     }
 
     public struct Data: GraphQLSelectionSet {
@@ -817,7 +817,7 @@ public final class UpdateAlbumMutation: GraphQLMutation {
     }
 
     public var variables: GraphQLMap? {
-        return ["input": input]
+        ["input": input]
     }
 
     public struct Data: GraphQLSelectionSet {
@@ -1050,7 +1050,7 @@ public final class DeleteAlbumMutation: GraphQLMutation {
     }
 
     public var variables: GraphQLMap? {
-        return ["input": input]
+        ["input": input]
     }
 
     public struct Data: GraphQLSelectionSet {
@@ -1283,7 +1283,7 @@ public final class CreatePhotoMutation: GraphQLMutation {
     }
 
     public var variables: GraphQLMap? {
-        return ["input": input]
+        ["input": input]
     }
 
     public struct Data: GraphQLSelectionSet {
@@ -1516,7 +1516,7 @@ public final class UpdatePhotoMutation: GraphQLMutation {
     }
 
     public var variables: GraphQLMap? {
-        return ["input": input]
+        ["input": input]
     }
 
     public struct Data: GraphQLSelectionSet {
@@ -1749,7 +1749,7 @@ public final class DeletePhotoMutation: GraphQLMutation {
     }
 
     public var variables: GraphQLMap? {
-        return ["input": input]
+        ["input": input]
     }
 
     public struct Data: GraphQLSelectionSet {
@@ -1982,7 +1982,7 @@ public final class GetAlbumQuery: GraphQLQuery {
     }
 
     public var variables: GraphQLMap? {
-        return ["id": id]
+        ["id": id]
     }
 
     public struct Data: GraphQLSelectionSet {
@@ -2219,7 +2219,7 @@ public final class ListAlbumsQuery: GraphQLQuery {
     }
 
     public var variables: GraphQLMap? {
-        return ["filter": filter, "limit": limit, "nextToken": nextToken]
+        ["filter": filter, "limit": limit, "nextToken": nextToken]
     }
 
     public struct Data: GraphQLSelectionSet {
@@ -2422,7 +2422,7 @@ public final class GetPhotoQuery: GraphQLQuery {
     }
 
     public var variables: GraphQLMap? {
-        return ["id": id]
+        ["id": id]
     }
 
     public struct Data: GraphQLSelectionSet {
@@ -2659,7 +2659,7 @@ public final class ListPhotosQuery: GraphQLQuery {
     }
 
     public var variables: GraphQLMap? {
-        return ["filter": filter, "limit": limit, "nextToken": nextToken]
+        ["filter": filter, "limit": limit, "nextToken": nextToken]
     }
 
     public struct Data: GraphQLSelectionSet {

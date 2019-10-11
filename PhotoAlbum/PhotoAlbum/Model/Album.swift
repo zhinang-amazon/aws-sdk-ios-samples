@@ -42,7 +42,7 @@ struct Album {
     }
 
     func getAlbumImage() -> String {
-        return "album"
+        "album"
     }
 
     mutating func appendPhoto(photo: Photo) {

@@ -30,11 +30,11 @@ class AlbumCollectionViewController: UICollectionViewController {
     // MARK: - specify UICollectionView Data Source
 
     override func numberOfSections(in _: UICollectionView) -> Int {
-        return 1
+        1
     }
 
     override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return albumCollection.count
+        albumCollection.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
