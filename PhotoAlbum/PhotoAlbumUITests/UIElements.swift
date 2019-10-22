@@ -14,78 +14,78 @@ struct UIElements {
 //        return XCUIApplication()
 //    }
     static var app: XCUIApplication {
-        UIActions.app
+        return UIActions.app
     }
 
     struct SignInScreen {
         static var navigationBar: XCUIElement {
-            app.navigationBars["Sign In"]
+            return app.navigationBars["Sign In"]
         }
 
         static var signInButton: XCUIElement {
-            app.buttons["Sign In"]
+            return app.buttons["Sign In"]
         }
     }
 
     struct AlbumsScreen {
         static var navigationBar: XCUIElement {
-            app.navigationBars["Albums"]
+            return app.navigationBars["Albums"]
         }
 
         static var addAlbumButton: XCUIElement {
-            navigationBar.buttons["Add"]
+            return navigationBar.buttons["Add"]
         }
 
         static var signOutButton: XCUIElement {
-            navigationBar.buttons["Sign Out"]
+            return navigationBar.buttons["Sign Out"]
         }
 
         static var editButton: XCUIElement {
-            navigationBar.buttons["Edit"]
+            return navigationBar.buttons["Edit"]
         }
 
         static var editDoneButton: XCUIElement {
-            navigationBar.buttons["Done"]
+            return navigationBar.buttons["Done"]
         }
 
         static func albumNameTextField(albumName: String) -> XCUIElement {
-            XCUIApplication().collectionViews.textFields[albumName + "_name"]
+            return XCUIApplication().collectionViews.textFields[albumName + "_name"]
         }
     }
 
     struct PhotosScreen {
         static var navigationBar: XCUIElement {
-            app.navigationBars["Photos"]
+            return app.navigationBars["Photos"]
         }
 
         static var backButton: XCUIElement {
-            navigationBar.buttons["Albums"]
+            return navigationBar.buttons["Albums"]
         }
 
         static var addPhotoButton: XCUIElement {
-            navigationBar.buttons["Add"]
+            return navigationBar.buttons["Add"]
         }
 
         static var addedPhotoCell: XCUIElement {
-            app.collectionViews.children(matching: .cell).element(boundBy: 0).otherElements.containing(.progressIndicator, identifier: "Progress").element
+            return app.collectionViews.children(matching: .cell).element(boundBy: 0).otherElements.containing(.progressIndicator, identifier: "Progress").element
         }
     }
 
     struct PhotoScreen {
         static var navigationBar: XCUIElement {
-            app.navigationBars["Photo"]
+            return app.navigationBars["Photo"]
         }
 
         static var backButton: XCUIElement {
-            navigationBar.buttons["Photos"]
+            return navigationBar.buttons["Photos"]
         }
 
         static var fullSizeImage: XCUIElement {
-            app.images["fullSizeImage"]
+            return app.images["fullSizeImage"]
         }
 
         static var fullSizeImageProgressView: XCUIElement {
-            app/*@START_MENU_TOKEN@*/.progressIndicators["fullSizeImageDownloadProgressView"]/*[[".progressIndicators[\"Progress\"]",".progressIndicators[\"fullSizeImageDownloadProgressView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+            return app/*@START_MENU_TOKEN@*/.progressIndicators["fullSizeImageDownloadProgressView"]/*[[".progressIndicators[\"Progress\"]",".progressIndicators[\"fullSizeImageDownloadProgressView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         }
     }
 

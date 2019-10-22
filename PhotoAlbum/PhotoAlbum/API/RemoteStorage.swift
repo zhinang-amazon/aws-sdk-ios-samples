@@ -67,7 +67,7 @@ class RemoteStorage {
     }
 
     class func getKeyFromReference(reference: String!, accessType: AccessSpecifier!) -> String! {
-        accessType.rawValue.lowercased() + "/" + RemoteStorage.userIdentityId + "/" + reference
+        return accessType.rawValue.lowercased() + "/" + RemoteStorage.userIdentityId + "/" + reference
     }
 
     class func getBucketNameFromAWSConfig() -> String {

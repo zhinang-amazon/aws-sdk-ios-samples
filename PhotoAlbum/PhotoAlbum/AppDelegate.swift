@@ -5,7 +5,12 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import AWSCore
+import AWSAppSync
+import AWSAuthCore
+import AWSAuthUI
+import AWSCognitoIdentityProviderASF
+import AWSMobileClient
+import AWSS3
 import UIKit
 
 @UIApplicationMain
