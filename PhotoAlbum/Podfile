@@ -7,15 +7,11 @@ target 'PhotoAlbum' do
   use_frameworks!
   
   # Pods for PhotoAlbum
-  pod 'AWSAuthCore'
-  pod 'AWSCognitoIdentityProvider'
-  pod 'AWSCognitoIdentityProviderASF'
-  pod 'AWSCore'
-  pod 'AWSMobileClient'
-  pod 'AWSUserPoolsSignIn'
-  pod 'AWSAuthUI'
-  pod 'AWSS3'
-  pod 'AWSAppSync'
+  pod 'AWSMobileClient', '~> 2.11.0'
+  pod 'AWSUserPoolsSignIn', '~> 2.11.0'
+  pod 'AWSAuthUI', '~> 2.11.0'
+  pod 'AWSS3', '~> 2.11.0'
+  pod 'AWSAppSync', '~> 2.14.3'
 
   # Tools
   pod 'SwiftFormat/CLI'
