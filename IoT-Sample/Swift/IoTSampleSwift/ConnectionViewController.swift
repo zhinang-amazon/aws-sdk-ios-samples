@@ -235,7 +235,7 @@ class ConnectionViewController: UIViewController, UITextViewDelegate {
 
         // Initialize the Amazon Cognito credentials provider
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType:AWSRegion,
-                                                                identityPoolId:"REGION:UUID")
+                                                                identityPoolId:IDENTITY_POOL_ID)
         let configuration = AWSServiceConfiguration(region:AWSRegion, credentialsProvider:credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
 

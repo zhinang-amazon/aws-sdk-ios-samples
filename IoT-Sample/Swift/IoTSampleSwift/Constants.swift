@@ -32,3 +32,5 @@ let AWSRegion = AWSRegionType.Unknown // e.g. AWSRegionType.USEast1
 let IOT_ENDPOINT = "https://xxxxxxxxxx.iot.<region>.amazonaws.com"
 
 let ASWIoTDataManager = "MyIotDataManager"
+
+let IDENTITY_POOL_ID = "YourIdenittyPoolId"
