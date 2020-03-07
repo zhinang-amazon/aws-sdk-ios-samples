@@ -197,6 +197,11 @@ class ConnectionViewController: UIViewController, UITextViewDelegate {
 
                 // Connect to the AWS IoT service
                 iotDataManager.connect( withClientId: uuid, cleanSession:true, certificateId:certificateId!, statusCallback: mqttEventCallback)
+
+                //Connect using a websocket -- make sure if you change from the .connect api to this api,
+                // uninstall the app first so that a new certificate gets created.
+                //iotDataManager.connectUsingWebSocket(withClientId: uuid, cleanSession: true, statusCallback: mqttEventCallback)
+
             }
         }
         else
@@ -228,6 +233,13 @@ class ConnectionViewController: UIViewController, UITextViewDelegate {
         tabBarViewController.viewControllers = [ self, configurationViewController ]
         logTextView.resignFirstResponder()
 
+        // Initialize the Amazon Cognito credentials provider
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:AWSRegion,
+                                                                identityPoolId:"REGION:UUID")
+        let configuration = AWSServiceConfiguration(region:AWSRegion, credentialsProvider:credentialsProvider)
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
+
+
         // Initialize AWSMobileClient for authorization
         AWSMobileClient.sharedInstance().initialize { (userState, error) in
             guard error == nil else {
@@ -241,13 +253,14 @@ class ConnectionViewController: UIViewController, UITextViewDelegate {
         let iotEndPoint = AWSEndpoint(urlString: IOT_ENDPOINT)
         
         // Configuration for AWSIoT control plane APIs
-        let iotConfiguration = AWSServiceConfiguration(region: AWSRegion, credentialsProvider: AWSMobileClient.sharedInstance())
+        let iotConfiguration = AWSServiceConfiguration(region: AWSRegion,
+                                                       endpoint: iotEndPoint,
+                                                       credentialsProvider: credentialsProvider)
         
         // Configuration for AWSIoT data plane APIs
         let iotDataConfiguration = AWSServiceConfiguration(region: AWSRegion,
                                                            endpoint: iotEndPoint,
-                                                           credentialsProvider: AWSMobileClient.sharedInstance())
-        AWSServiceManager.default().defaultServiceConfiguration = iotConfiguration
+                                                           credentialsProvider: credentialsProvider)
 
         iotManager = AWSIoTManager.default()
         iot = AWSIoT.default()

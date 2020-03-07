@@ -26,5 +26,9 @@ let PolicyName = "YourPolicyName"
 
 // This is the endpoint in your AWS IoT console. eg: https://xxxxxxxxxx.iot.<region>.amazonaws.com
 let AWSRegion = AWSRegionType.Unknown // e.g. AWSRegionType.USEast1
+
+//For both connecting over websockets and connect, IOT_ENDPOINT should look like
+//https://xxxxxxx-ats.iot.REGION.amazonaws.com
 let IOT_ENDPOINT = "https://xxxxxxxxxx.iot.<region>.amazonaws.com"
+
 let ASWIoTDataManager = "MyIotDataManager"
