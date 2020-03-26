@@ -1,5 +1,5 @@
 //
-// Copyright 2018-2019 Amazon.com,
+// Copyright 2018-2020 Amazon.com,
 // Inc. or its affiliates. All Rights Reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -47,9 +47,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print("***********************")
-        print("application didRegisterForRemoteNotificationsWithDeviceToken")
-        print("deviceToken = \(deviceToken.toHexString())")
+        pinpoint!.notificationManager.interceptDidRegisterForRemoteNotifications(withDeviceToken: deviceToken)
+    }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        pinpoint!.notificationManager.interceptDidReceiveRemoteNotification(userInfo,
+                                                                            fetchCompletionHandler: completionHandler)
+        var state: String
+        switch application.applicationState {
+        case .active:
+            state = "active"
+        case .background:
+            state = "background"
+        case .inactive:
+            state = "inactive"
+        default:
+            state = "unknown state"
+        }
+        let alert = UIAlertController(title: "Notification Received while \(state)",
+                                      message: userInfo.description,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+        UIApplication.shared.keyWindow?.rootViewController?.present(
+            alert, animated: true, completion: nil
+        )
     }
 
     // MARK: AWS Initializers
