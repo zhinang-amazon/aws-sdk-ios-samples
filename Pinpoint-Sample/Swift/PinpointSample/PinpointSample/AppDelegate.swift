@@ -47,6 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("***********************")
+        print("application didRegisterForRemoteNotificationsWithDeviceToken")
+        print("deviceToken = \(deviceToken.toHexString())")
         pinpoint!.notificationManager.interceptDidRegisterForRemoteNotifications(withDeviceToken: deviceToken)
     }
 
