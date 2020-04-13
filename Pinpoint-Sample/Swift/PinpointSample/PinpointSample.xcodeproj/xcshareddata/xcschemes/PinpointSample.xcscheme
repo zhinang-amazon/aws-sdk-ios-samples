@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2E831B3C3EFD86D68870161A3C949893"
+               BuildableName = "AWSPinpoint.framework"
+               BlueprintName = "AWSPinpoint"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "B9932B49230F3DAA0036F778"
                BuildableName = "PinpointSample.app"
                BlueprintName = "PinpointSample"

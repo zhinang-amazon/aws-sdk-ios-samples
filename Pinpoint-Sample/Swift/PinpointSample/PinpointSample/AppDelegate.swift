@@ -55,6 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+            pinpoint!.notificationManager.rootViewController = rootViewController
+        }
+
         pinpoint!.notificationManager.interceptDidReceiveRemoteNotification(userInfo,
                                                                             fetchCompletionHandler: completionHandler)
         var state: String
@@ -68,14 +72,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         default:
             state = "unknown state"
         }
-        let alert = UIAlertController(title: "Notification Received while \(state)",
-                                      message: userInfo.description,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-
-        UIApplication.shared.keyWindow?.rootViewController?.present(
-            alert, animated: true, completion: nil
-        )
+//        let alert = UIAlertController(title: "Notification Received while \(state)",
+//                                      message: userInfo.description,
+//                                      preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//
+//        UIApplication.shared.keyWindow?.rootViewController?.present(
+//            alert, animated: true, completion: nil
+//        )
     }
 
     // MARK: AWS Initializers

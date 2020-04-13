@@ -6,7 +6,7 @@ target 'PinpointSample' do
   use_frameworks!
 
   # Pods for PinpointSample
-  pod 'AWSPinpoint', :git => 'https://github.com/zhinang-amazon/aws-sdk-ios.git', :branch => 'pinpointJourneyPush'
+  pod 'AWSPinpoint', :path => '/Volumes/workplace/mobileSDK/ios/aws-sdk-ios'
   pod 'AWSMobileClient', '~> 2.13.0'
   
   # Tools
