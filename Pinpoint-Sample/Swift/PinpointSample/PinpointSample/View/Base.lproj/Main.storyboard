@@ -155,22 +155,32 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TKG-Yt-1n7">
-                                <rect key="frame" x="120.5" y="724" width="173" height="38"/>
+                                <rect key="frame" x="94" y="724" width="226" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="Retrieve Messages"/>
+                                <state key="normal" title="Retrieve Dialog Message"/>
                                 <connections>
-                                    <action selector="retrieveMessages:" destination="tsI-mv-a3K" eventType="touchUpInside" id="MPf-wZ-HY6"/>
+                                    <action selector="retrieveDialogMessages:" destination="tsI-mv-a3K" eventType="touchUpInside" id="MPf-wZ-HY6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xdf-wi-XfS">
+                                <rect key="frame" x="92.5" y="664" width="229" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Retrieve Splash Message"/>
+                                <connections>
+                                    <action selector="retrieveSplashMessages:" destination="tsI-mv-a3K" eventType="touchUpInside" id="WOi-XZ-Nza"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="D5K-ue-SUo" firstAttribute="centerX" secondItem="dZo-o3-tJk" secondAttribute="centerX" id="21J-pD-rhc"/>
+                            <constraint firstItem="TKG-Yt-1n7" firstAttribute="top" secondItem="Xdf-wi-XfS" secondAttribute="top" constant="60" id="EbF-2c-Jgc"/>
                             <constraint firstItem="PSX-Pw-pMU" firstAttribute="centerX" secondItem="dZo-o3-tJk" secondAttribute="centerX" id="KoJ-Nj-G6Z"/>
                             <constraint firstItem="TKG-Yt-1n7" firstAttribute="centerX" secondItem="dZo-o3-tJk" secondAttribute="centerX" id="kqj-kO-0eY"/>
                             <constraint firstItem="QsR-wi-zec" firstAttribute="bottom" secondItem="TKG-Yt-1n7" secondAttribute="bottom" constant="100" id="mDa-zD-z92"/>
                             <constraint firstItem="PSX-Pw-pMU" firstAttribute="centerY" secondItem="dZo-o3-tJk" secondAttribute="centerY" id="nka-NB-l9P"/>
                             <constraint firstItem="D5K-ue-SUo" firstAttribute="top" secondItem="QsR-wi-zec" secondAttribute="top" constant="50" id="qma-EL-d6c"/>
+                            <constraint firstItem="TKG-Yt-1n7" firstAttribute="centerX" secondItem="Xdf-wi-XfS" secondAttribute="centerX" id="zGR-nc-0qC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QsR-wi-zec"/>
                     </view>

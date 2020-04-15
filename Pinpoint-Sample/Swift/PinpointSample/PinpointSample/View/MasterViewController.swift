@@ -40,7 +40,7 @@ class MasterViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        iamModule.retrieveEligibleInAppMessages()
+        // iamModule.retrieveEligibleInAppMessages()
     }
 
     @objc func insertNewObject(_: Any) {
@@ -109,19 +109,19 @@ class MasterViewController: UITableViewController {
 }
 
 extension MasterViewController: InAppMessagingDelegate {
-    func primaryButtonClicked(message: AWSPinpointSplashModel) {
+    func primaryButtonClicked(message: AWSPinpointIAMModel) {
         print("MasterViewController.primaryButtonClicked")
         let primaryButtonURL = URL(string: message.customParam["primaryButtonURL"]!)
         UIApplication.shared.openURL(primaryButtonURL!)
     }
 
-    func secondaryButtonClicked(message: AWSPinpointSplashModel) {
+    func secondaryButtonClicked(message: AWSPinpointIAMModel) {
         print("MasterViewController.secondaryButtonClicked")
         let secondaryButtonURL = URL(string: message.customParam["secondaryButtonURL"]!)
         UIApplication.shared.openURL(secondaryButtonURL!)
     }
 
-    func messageDismissed(message _: AWSPinpointSplashModel) {
+    func messageDismissed(message _: AWSPinpointIAMModel) {
         print("MasterViewController.messageDismissed")
     }
 }

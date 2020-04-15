@@ -13,8 +13,12 @@ class InAppMessageDemoViewController: UIViewController {
     var iamModule: InAppMessagingModule!
 
     @IBOutlet var statusLable: UILabel!
-    @IBAction func retrieveMessages(_: UIButton) {
-        iamModule.retrieveEligibleInAppMessages()
+    @IBAction func retrieveSplashMessages(_: UIButton) {
+        iamModule.retrieveSplashIAM()
+    }
+
+    @IBAction func retrieveDialogMessages(_: UIButton) {
+        iamModule.retrieveDialogIAM()
     }
 
     override func viewDidLoad() {
@@ -36,21 +40,21 @@ class InAppMessageDemoViewController: UIViewController {
 }
 
 extension InAppMessageDemoViewController: InAppMessagingDelegate {
-    func primaryButtonClicked(message: AWSPinpointSplashModel) {
+    func primaryButtonClicked(message: AWSPinpointIAMModel) {
         print("MasterViewController.primaryButtonClicked")
         // let primaryButtonURL = URL(string: message.customParam["primaryButtonURL"]!)
         // UIApplication.shared.openURL(primaryButtonURL!)
         statusLable.text = "\(message.name) primary button clicked"
     }
 
-    func secondaryButtonClicked(message: AWSPinpointSplashModel) {
+    func secondaryButtonClicked(message: AWSPinpointIAMModel) {
         print("MasterViewController.secondaryButtonClicked")
         // let secondaryButtonURL = URL(string: message.customParam["secondaryButtonURL"]!)
         // UIApplication.shared.openURL(secondaryButtonURL!)
         statusLable.text = "\(message.name) secondary button clicked"
     }
 
-    func messageDismissed(message: AWSPinpointSplashModel) {
+    func messageDismissed(message: AWSPinpointIAMModel) {
         print("MasterViewController.messageDismissed")
         statusLable.text = "\(message.name) dismissed by user"
     }
