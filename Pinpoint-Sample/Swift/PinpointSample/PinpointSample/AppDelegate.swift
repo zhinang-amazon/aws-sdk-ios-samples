@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         registerForPushNotifications()
 
         // setup views
-        setupSplitView()
+        // setupSplitView()
 
         // setup logging
         AWSDDLog.sharedInstance.logLevel = .info
@@ -211,24 +211,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     // MARK: - Split View
 
-    private func setupSplitView() {
-        // Override point for customization after application launch.
-        // swiftlint:disable:next force_cast
-        let splitViewController = window!.rootViewController as! UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count - 1] as! UINavigationController
-        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-        // swiftlint:disable:previous force_cast
-        splitViewController.delegate = self
-    }
-
-    func splitViewController(_: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto _: UIViewController) -> Bool {
-        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
-        guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
-        if topAsDetailController.detailItem == nil {
-            // Return true to indicate that we have handled the collapse
-            // by doing nothing; the secondary controller will be discarded.
-            return true
-        }
-        return false
-    }
+//    private func setupSplitView() {
+//        // Override point for customization after application launch.
+//        // swiftlint:disable:next force_cast
+//        let splitViewController = window!.rootViewController as! UISplitViewController
+//        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count - 1] as! UINavigationController
+//        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+//        // swiftlint:disable:previous force_cast
+//        splitViewController.delegate = self
+//    }
+//
+//    func splitViewController(_: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto _: UIViewController) -> Bool {
+//        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
+//        guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
+//        if topAsDetailController.detailItem == nil {
+//            // Return true to indicate that we have handled the collapse
+//            // by doing nothing; the secondary controller will be discarded.
+//            return true
+//        }
+//        return false
+//    }
 }

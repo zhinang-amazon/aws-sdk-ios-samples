@@ -19,6 +19,7 @@
 		B9932B62230F4E360036F778 /* AppEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9932B61230F4E360036F778 /* AppEventType.swift */; };
 		B9932B64230F577B0036F778 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = B9932B63230F577B0036F778 /* awsconfiguration.json */; };
 		B9932B8E2310B7010036F778 /* AnalyticsEventTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9932B8D2310B7010036F778 /* AnalyticsEventTimer.swift */; };
+		C436FB1B244779800004738F /* InAppMessageDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436FB19244779800004738F /* InAppMessageDemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		B9932B63230F577B0036F778 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
 		B9932B69230F5BE30036F778 /* PinpointSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PinpointSample.entitlements; sourceTree = "<group>"; };
 		B9932B8D2310B7010036F778 /* AnalyticsEventTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEventTimer.swift; sourceTree = "<group>"; };
+		C436FB19244779800004738F /* InAppMessageDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDemoViewController.swift; sourceTree = "<group>"; };
 		DCCEAD8FE6EDABE357CD94C8 /* Pods_PinpointSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinpointSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -71,6 +73,7 @@
 				B91689F52335A105006D9E59 /* MasterViewController.swift */,
 				B9932B56230F3DAB0036F778 /* LaunchScreen.storyboard */,
 				B9932B51230F3DAA0036F778 /* Main.storyboard */,
+				C436FB19244779800004738F /* InAppMessageDemoViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				B9932B8E2310B7010036F778 /* AnalyticsEventTimer.swift in Sources */,
 				B91689F82335A106006D9E59 /* DetailViewController.swift in Sources */,
 				B9932B62230F4E360036F778 /* AppEventType.swift in Sources */,
+				C436FB1B244779800004738F /* InAppMessageDemoViewController.swift in Sources */,
 				B9932B4E230F3DAA0036F778 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
