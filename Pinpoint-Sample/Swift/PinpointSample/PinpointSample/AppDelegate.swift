@@ -55,9 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            pinpoint!.notificationManager.rootViewController = rootViewController
-        }
+//        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+//            pinpoint!.notificationManager.rootViewController = rootViewController
+//        }
 
         pinpoint!.notificationManager.interceptDidReceiveRemoteNotification(userInfo,
                                                                             fetchCompletionHandler: completionHandler)

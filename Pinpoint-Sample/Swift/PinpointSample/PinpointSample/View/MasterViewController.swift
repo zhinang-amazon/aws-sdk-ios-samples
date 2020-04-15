@@ -5,11 +5,15 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import AWSPinpoint
 import UIKit
 
 class MasterViewController: UITableViewController {
     var detailViewController: DetailViewController?
     var objects = [Any]()
+
+    var pinpoint: AWSPinpoint!
+    var iamModule: InAppMessagingModule!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +28,9 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count - 1] as! UINavigationController).topViewController as? DetailViewController
         }
+
+        pinpoint = (UIApplication.shared.delegate as! AppDelegate).pinpoint!
+        iamModule = InAppMessagingModule(delegate: self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -31,11 +38,24 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
 
-    @objc
-    func insertNewObject(_: Any) {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        iamModule.retrieveEligibleInAppMessages()
+    }
+
+    @objc func insertNewObject(_: Any) {
         objects.insert(NSDate(), at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
+
+        let analyticsClient = pinpoint.analyticsClient
+        let eventType = "eventTrigger.insertNewObject"
+        let event = analyticsClient.createEvent(withEventType: eventType)
+        analyticsClient.record(event).continueOnSuccessWith { _ in
+            print(">>> \(eventType) Event recorded...")
+        }
+
+        // iamModule.retrieveEligibleInAppMessages()
     }
 
     // MARK: - Segues
@@ -85,5 +105,23 @@ class MasterViewController: UITableViewController {
             // Create a new instance of the appropriate class
             // insert it into the array, and add a new row to the table view.
         }
+    }
+}
+
+extension MasterViewController: InAppMessagingDelegate {
+    func primaryButtonClicked(message: AWSPinpointSplashModel) {
+        print("MasterViewController.primaryButtonClicked")
+        let primaryButtonURL = URL(string: message.customParam["primaryButtonURL"]!)
+        UIApplication.shared.openURL(primaryButtonURL!)
+    }
+
+    func secondaryButtonClicked(message: AWSPinpointSplashModel) {
+        print("MasterViewController.secondaryButtonClicked")
+        let secondaryButtonURL = URL(string: message.customParam["secondaryButtonURL"]!)
+        UIApplication.shared.openURL(secondaryButtonURL!)
+    }
+
+    func messageDismissed(message _: AWSPinpointSplashModel) {
+        print("MasterViewController.messageDismissed")
     }
 }
