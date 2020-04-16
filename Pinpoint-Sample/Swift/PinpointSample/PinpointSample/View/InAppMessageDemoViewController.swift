@@ -13,12 +13,20 @@ class InAppMessageDemoViewController: UIViewController {
     var iamModule: InAppMessagingModule!
 
     @IBOutlet var statusLable: UILabel!
-    @IBAction func retrieveSplashMessages(_: UIButton) {
-        iamModule.retrieveSplashIAM()
+    @IBAction func triggerSplashMessages(_: UIButton) {
+        recordEventTrigger(name: "splashMessage")
     }
 
-    @IBAction func retrieveDialogMessages(_: UIButton) {
-        iamModule.retrieveDialogIAM()
+    @IBAction func triggerDialogMessages(_: UIButton) {
+        recordEventTrigger(name: "dialogMessage")
+    }
+
+    @IBAction func localSplashMessage(_: UIButton) {
+        iamModule.localSplashIAM()
+    }
+
+    @IBAction func localDialogMessage(_: UIButton) {
+        iamModule.localDialogIAM()
     }
 
     override func viewDidLoad() {
@@ -28,15 +36,15 @@ class InAppMessageDemoViewController: UIViewController {
         iamModule = InAppMessagingModule(delegate: self)
     }
 
-    /*
-     // MARK: - Navigation
-
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-     }
-     */
+    private func recordEventTrigger(name: String) {
+        let analyticsClient = pinpoint.analyticsClient
+        let eventType = "eventTrigger.\(name)"
+        let event = analyticsClient.createEvent(withEventType: eventType)
+        analyticsClient.record(event).continueOnSuccessWith { _ in
+            print(">>> \(eventType) Event recorded...")
+        }
+        statusLable.text = "\(eventType) event sent"
+    }
 }
 
 extension InAppMessageDemoViewController: InAppMessagingDelegate {
