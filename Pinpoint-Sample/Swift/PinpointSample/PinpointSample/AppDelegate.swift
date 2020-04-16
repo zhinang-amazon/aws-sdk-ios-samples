@@ -102,6 +102,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //            print("token = \(token)")
 //            return nil
 //        }
+        let iamModule = InAppMessagingModule(delegate: self)
+        pinpoint.inAppMessagingModule = iamModule
+        pinpoint.notificationManager.inAppMessagingModule = iamModule
         analyticsTimer = AnalyticsEventTimer(analyticsClient: pinpoint.analyticsClient)
         analyticsTimer.resume()
     }
@@ -133,6 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         updateEndpoint()
         recordAppLifecycleEvent(type: .appDidBecomeActive)
+        pinpoint.inAppMessagingModule.displayAppStartIAMIfAvailable()
     }
 
     func applicationWillTerminate(_: UIApplication) {
@@ -231,4 +235,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        }
 //        return false
 //    }
+}
+
+extension AppDelegate: InAppMessagingDelegate {
+    func primaryButtonClicked(message: AWSPinpointIAMModel) {
+        print("\(message.name).primaryButtonClicked")
+        let primaryButtonURL = URL(string: message.customParam["primaryButtonURL"]!)
+        UIApplication.shared.openURL(primaryButtonURL!)
+    }
+
+    func secondaryButtonClicked(message: AWSPinpointIAMModel) {
+        print("\(message.name).secondaryButtonClicked")
+        let secondaryButtonURL = URL(string: message.customParam["secondaryButtonURL"]!)
+        UIApplication.shared.openURL(secondaryButtonURL!)
+    }
+
+    func messageDismissed(message: AWSPinpointIAMModel) {
+        print("\(message.name).messageDismissed")
+    }
 }
