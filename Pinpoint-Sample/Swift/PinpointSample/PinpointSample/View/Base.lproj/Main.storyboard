@@ -205,7 +205,7 @@
                         <viewLayoutGuide key="safeArea" id="QsR-wi-zec"/>
                     </view>
                     <connections>
-                        <outlet property="statusLable" destination="PSX-Pw-pMU" id="sOo-1w-K9O"/>
+                        <outlet property="statusLabel" destination="PSX-Pw-pMU" id="sOo-1w-K9O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Qx-3o-Ute" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
