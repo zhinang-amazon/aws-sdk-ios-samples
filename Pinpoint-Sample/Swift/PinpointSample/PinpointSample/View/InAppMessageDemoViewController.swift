@@ -103,7 +103,7 @@ extension InAppMessageDemoViewController: InAppMessagingDelegate {
 
     func displayInvoked(message: AWSPinpointIAMModel) {
         endTimer()
-        if statusLabel.text?.contains("eventTrigger") ?? false {
+        if message.name.contains("eventTrigger") {
             statusLabel.text = "\(message.name) received time: \(timeFormatted(secondsElapsed))"
         } else {
             statusLabel.text = "\(message.name) displayed"
