@@ -52,7 +52,11 @@ class InAppMessageDemoViewController: UIViewController {
     func startTimer() {
         endTimer()
         secondsElapsed = 0
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: #selector(updateTime),
+                                     userInfo: nil,
+                                     repeats: true)
     }
 
     @objc func updateTime() {
@@ -99,6 +103,10 @@ extension InAppMessageDemoViewController: InAppMessagingDelegate {
 
     func displayInvoked(message: AWSPinpointIAMModel) {
         endTimer()
-        statusLabel.text = "\(message.name) received time: \(timeFormatted(secondsElapsed))"
+        if statusLabel.text?.contains("eventTrigger") ?? false {
+            statusLabel.text = "\(message.name) received time: \(timeFormatted(secondsElapsed))"
+        } else {
+            statusLabel.text = "\(message.name) displayed"
+        }
     }
 }

@@ -149,13 +149,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PSX-Pw-pMU">
-                                <rect key="frame" x="178" y="435.5" width="58.5" height="25.5"/>
+                                <rect key="frame" x="20" y="326" width="374" height="244"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TKG-Yt-1n7">
-                                <rect key="frame" x="100" y="664" width="214" height="38"/>
+                                <rect key="frame" x="100" y="670" width="214" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Trigger Dialog Message"/>
                                 <connections>
@@ -163,7 +163,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xdf-wi-XfS">
-                                <rect key="frame" x="98" y="604" width="218" height="38"/>
+                                <rect key="frame" x="98" y="610" width="218" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Trigger Splash Message"/>
                                 <connections>
@@ -191,14 +191,17 @@
                         <constraints>
                             <constraint firstItem="D5K-ue-SUo" firstAttribute="centerX" secondItem="dZo-o3-tJk" secondAttribute="centerX" id="21J-pD-rhc"/>
                             <constraint firstItem="TKG-Yt-1n7" firstAttribute="top" secondItem="Xdf-wi-XfS" secondAttribute="top" constant="60" id="EbF-2c-Jgc"/>
-                            <constraint firstItem="PSX-Pw-pMU" firstAttribute="centerX" secondItem="dZo-o3-tJk" secondAttribute="centerX" id="KoJ-Nj-G6Z"/>
                             <constraint firstItem="2Oc-DW-xWJ" firstAttribute="centerX" secondItem="dZo-o3-tJk" secondAttribute="centerX" id="Qbh-h0-WaK"/>
+                            <constraint firstItem="PSX-Pw-pMU" firstAttribute="top" secondItem="D5K-ue-SUo" secondAttribute="bottom" constant="40" id="VhZ-Hr-J6F"/>
                             <constraint firstItem="eVX-zc-ZWj" firstAttribute="centerX" secondItem="dZo-o3-tJk" secondAttribute="centerX" id="Xqa-N0-xsz"/>
                             <constraint firstItem="eVX-zc-ZWj" firstAttribute="top" secondItem="2Oc-DW-xWJ" secondAttribute="top" constant="60" id="bVZ-5i-6UU"/>
+                            <constraint firstItem="QsR-wi-zec" firstAttribute="trailing" secondItem="PSX-Pw-pMU" secondAttribute="trailing" constant="20" id="jUf-jC-Xpb"/>
                             <constraint firstItem="TKG-Yt-1n7" firstAttribute="centerX" secondItem="dZo-o3-tJk" secondAttribute="centerX" id="kqj-kO-0eY"/>
                             <constraint firstItem="QsR-wi-zec" firstAttribute="bottom" secondItem="TKG-Yt-1n7" secondAttribute="bottom" constant="160" id="mDa-zD-z92"/>
                             <constraint firstItem="PSX-Pw-pMU" firstAttribute="centerY" secondItem="dZo-o3-tJk" secondAttribute="centerY" id="nka-NB-l9P"/>
                             <constraint firstItem="QsR-wi-zec" firstAttribute="bottom" secondItem="eVX-zc-ZWj" secondAttribute="bottom" constant="35" id="oky-xq-Fag"/>
+                            <constraint firstItem="PSX-Pw-pMU" firstAttribute="leading" secondItem="QsR-wi-zec" secondAttribute="leading" constant="20" id="pPg-us-0Jq"/>
+                            <constraint firstItem="Xdf-wi-XfS" firstAttribute="top" secondItem="PSX-Pw-pMU" secondAttribute="bottom" constant="40" id="q5D-lE-FMn"/>
                             <constraint firstItem="D5K-ue-SUo" firstAttribute="top" secondItem="QsR-wi-zec" secondAttribute="top" constant="50" id="qma-EL-d6c"/>
                             <constraint firstItem="TKG-Yt-1n7" firstAttribute="centerX" secondItem="Xdf-wi-XfS" secondAttribute="centerX" id="zGR-nc-0qC"/>
                         </constraints>
