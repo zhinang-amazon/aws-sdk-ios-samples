@@ -12,8 +12,14 @@ class InAppMessageDemoViewController: UIViewController {
     var pinpoint: AWSPinpoint!
     var timer = Timer()
     var secondsElapsed = 0
+    var selectedStyle: Int = 0
 
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var statusLabel: UILabel!
+    @IBOutlet var triggerSplashButton: UIButton!
+    @IBOutlet var triggerDialogButton: UIButton!
+
     @IBAction func triggerSplashMessages(_: UIButton) {
         recordEventTrigger(name: "splashMessage")
         startTimer()
@@ -24,12 +30,43 @@ class InAppMessageDemoViewController: UIViewController {
         startTimer()
     }
 
-    @IBAction func localSplashMessage(_: UIButton) {
-        pinpoint.inAppMessagingModule.localSplashIAM()
+    @IBAction func primeButtonTapped(_: UIButton) {
+        switch selectedStyle {
+        case 0:
+            pinpoint.inAppMessagingModule.localSplashIAM()
+        case 1:
+            pinpoint.inAppMessagingModule.localDialogIAM()
+        case 2:
+            pinpoint.inAppMessagingModule.displayToast("Learn more about Amazon Prime benefits",
+                                                       duration: 5.0,
+                                                       position: .top) { didTap in
+                if didTap {
+                    UIApplication.shared.openURL(URL(string: "https://www.amazon.com/amazonprime")!)
+                }
+            }
+        default:
+            break
+        }
     }
 
-    @IBAction func localDialogMessage(_: UIButton) {
-        pinpoint.inAppMessagingModule.localDialogIAM()
+    @IBAction func styleSegmentedControl(_ sender: UISegmentedControl) {
+        selectedStyle = sender.selectedSegmentIndex
+    }
+
+    @IBAction func backgroundSwitchToggled(_ sender: UISwitch) {
+        if sender.isOn {
+            backgroundImageView.alpha = 1
+            statusLabel.alpha = 0
+            titleLabel.alpha = 0
+            triggerSplashButton.alpha = 0
+            triggerDialogButton.alpha = 0
+        } else {
+            backgroundImageView.alpha = 0
+            statusLabel.alpha = 1
+            titleLabel.alpha = 1
+            triggerSplashButton.alpha = 1
+            triggerDialogButton.alpha = 1
+        }
     }
 
     override func viewDidLoad() {
@@ -37,6 +74,10 @@ class InAppMessageDemoViewController: UIViewController {
 
         pinpoint = (UIApplication.shared.delegate as! AppDelegate).pinpoint!
         pinpoint.inAppMessagingModule.delegate = self
+        statusLabel.alpha = 0
+        titleLabel.alpha = 0
+        triggerSplashButton.alpha = 0
+        triggerDialogButton.alpha = 0
     }
 
     private func recordEventTrigger(name: String) {
@@ -79,21 +120,18 @@ class InAppMessageDemoViewController: UIViewController {
 extension InAppMessageDemoViewController: InAppMessagingDelegate {
     func primaryButtonClicked(message: AWSPinpointIAMModel) {
         print("\(message.name).primaryButtonClicked")
-        if message.name.contains("local") {
-            statusLabel.text = "\(message.name) primary button clicked"
-        } else {
-            let primaryButtonURL = URL(string: message.customParam["primaryButtonURL"]!)
-            UIApplication.shared.openURL(primaryButtonURL!)
-        }
+        // if message.name.contains("local") {
+        //    statusLabel.text = "\(message.name) primary button clicked"
+        // } else {
+        let primaryButtonURL = URL(string: message.customParam["primaryButtonURL"]!)
+        UIApplication.shared.openURL(primaryButtonURL!)
+        // }
     }
 
     func secondaryButtonClicked(message: AWSPinpointIAMModel) {
         print("\(message.name).secondaryButtonClicked")
-        if message.name.contains("local") {
-            statusLabel.text = "\(message.name) secondary button clicked"
-        } else {
-            let secondaryButtonURL = URL(string: message.customParam["secondaryButtonURL"]!)
-            UIApplication.shared.openURL(secondaryButtonURL!)
+        if let secondaryButtonURL = URL(string: message.customParam["secondaryButtonURL"] ?? "") {
+            UIApplication.shared.openURL(secondaryButtonURL)
         }
     }
 
@@ -106,7 +144,7 @@ extension InAppMessageDemoViewController: InAppMessagingDelegate {
         if message.name.contains("eventTrigger") {
             statusLabel.text = "\(message.name) received time: \(timeFormatted(secondsElapsed))"
         } else {
-            statusLabel.text = "\(message.name) displayed"
+            // statusLabel.text = "\(message.name) displayed"
         }
     }
 }
