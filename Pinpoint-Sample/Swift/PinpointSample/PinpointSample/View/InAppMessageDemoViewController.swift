@@ -37,13 +37,7 @@ class InAppMessageDemoViewController: UIViewController {
         case 1:
             pinpoint.inAppMessagingModule.localDialogIAM()
         case 2:
-            pinpoint.inAppMessagingModule.displayToast("Learn more about Amazon Prime benefits",
-                                                       duration: 5.0,
-                                                       position: .top) { didTap in
-                if didTap {
-                    UIApplication.shared.openURL(URL(string: "https://www.amazon.com/amazonprime")!)
-                }
-            }
+            pinpoint.inAppMessagingModule.localBannerIAM()
         default:
             break
         }
