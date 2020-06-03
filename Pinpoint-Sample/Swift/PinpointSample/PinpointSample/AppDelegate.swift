@@ -184,7 +184,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let endpoint = targetingClient.currentEndpointProfile()
 
         let user = endpoint.user ?? AWSPinpointEndpointProfileUser()
-        user.userId = UUID().uuidString
+        user.userId = "PinpointSampleApp"
         endpoint.user = user
 
         print("=====================")
